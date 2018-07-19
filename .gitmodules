@@ -1,3 +1,6 @@
 [submodule "StratisBitcoinFullNode"]
 	path = StratisBitcoinFullNode
 	url = https://github.com/stratisproject/StratisBitcoinFullNode/
+[submodule "X42-FullNode"]
+	path = X42-FullNode
+	url = https://github.com/x42protocol/X42-FullNode
