@@ -1,0 +1,51 @@
+{
+  "appId": "com.X42platform.core",
+  "productName": "X42 Core",
+  "publish": null,
+  "directories": {
+    "output": "app-builds"
+  },
+  "win": {
+    "icon": "dist/assets/images/icon",
+    "target": [
+      "nsis"
+    ],
+    "artifactName": "${productName}-v${version}-setup-${os}-${env.arch}.${ext}"
+  },
+  "linux": {
+    "icon": "dist/assets/images/",
+    "target": [
+      "deb",
+      "tar.gz"
+    ],
+    "synopsis": "FullNode.UI: X42' staking wallet.",
+    "category": "Utility",
+    "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
+  },
+  "mac": {
+    "icon": "dist/assets/images/icon.icns",
+    "target": [
+      "dmg"
+    ],
+    "category": "public.app-category.productivity",
+    "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": true,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": true,
+    "guid": "ef77eb40-01cf-4516-9da6-f3c6ba6854aa",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "license": "src/assets/images/license_en.txt"
+  },
+  "msi": {
+    "warningsAsErrors": false
+  },
+  "extraResources": [
+    "daemon/**/*",
+    "src/assets/images/icon-tray.png",
+    "src/assets/images/license_en.txt"
+  ]
+}

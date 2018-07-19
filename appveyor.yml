@@ -1,0 +1,140 @@
+#  from https://www.appveyor.com/docs/appveyor-yml/
+
+# you can use {branch} name in version format too
+# version: 1.0.{build}-{branch}
+
+version: 0.3.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+image: Visual Studio 2017
+clone_folder: c:\projects\fullnodeui
+configuration:
+  - Release
+
+build:
+  parallel: true
+
+environment:
+  matrix:
+  - win_runtime: win-x64
+    arch: x64
+    plat: win32
+  - win_runtime: win-x86
+    arch: ia32
+    plat: win32
+
+# build cache to preserve files/folders between builds
+cache:
+  - '%APPVEYOR_BUILD_FOLDER%\FullNode.UI\node_modules'
+  - '%USERPROFILE%\.nuget\packages'
+  
+init:
+- ps: |
+      $env:log_prefix = "[$env:win_runtime][$env:configuration]"
+      if ($env:APPVEYOR_REPO_TAG -eq "false") { $env:APPVEYOR_REPO_TAG_NAME = "cd-unstable" }
+
+install:
+- ps: |
+      Write-Host "Installing dependencies" -foregroundcolor "magenta"
+      
+      Write-Host "--> git submodule" -foregroundcolor "magenta"
+      git submodule update --init --recursive
+      
+      Write-Host "--> node 6" -foregroundcolor "magenta"
+      Install-Product node 6
+      
+      Write-Host "--> npm config" -foregroundcolor "magenta"
+      npm config set unsafe-perm=true
+      
+      Write-Host "--> npm install" -foregroundcolor "magenta"
+      cd $env:APPVEYOR_BUILD_FOLDER/FullNode.UI
+      npm install
+      
+      Write-Host "--> npm install npx" -foregroundcolor "magenta"
+      npm install -g npx
+      
+      Write-Host "$env:log_prefix FINISHED restoring dotnet and npm packages" -foregroundcolor "magenta"
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+    
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+before_build:
+- ps: |
+      Write-Host "*--------------------------------*" -foregroundcolor "magenta"
+      Write-Host "current environment variables:" -foregroundcolor "magenta"
+      Write-Host "Windows runtime: $env:win_runtime" -foregroundcolor "magenta"
+      Write-Host "Build directory: $env:APPVEYOR_BUILD_FOLDER" -foregroundcolor "magenta"
+      Write-Host "Configuration: $env:configuration" -foregroundcolor "magenta"
+      Write-Host "Branch: $env:APPVEYOR_REPO_BRANCH" -foregroundcolor "magenta"
+      Write-Host "Tag is set: $env:APPVEYOR_REPO_TAG" -foregroundcolor "magenta"
+      Write-Host "Tag: $env:APPVEYOR_REPO_TAG_NAME" -foregroundcolor "magenta"
+      Write-Host "Commit: $env:APPVEYOR_REPO_COMMIT" -foregroundcolor "magenta"
+      Write-Host "Commit message: $env:APPVEYOR_REPO_COMMIT_MESSAGE" -foregroundcolor "magenta"
+      Write-Host "*--------------------------------*" -foregroundcolor "magenta"
+
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode) }
+    
+build_script:
+- ps: |
+      Write-Host "$env:log_prefix running 'dotnet publish'" -foregroundcolor "magenta"
+      cd $env:APPVEYOR_BUILD_FOLDER/x42FullNode/src/x42.x42D
+      dotnet publish -c $env:configuration -v m -r $env:win_runtime -o $env:APPVEYOR_BUILD_FOLDER\FullNode.UI\daemon
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
+      
+      Write-Host "$env:log_prefix building FullNode.UI" -foregroundcolor "magenta"
+      cd $env:APPVEYOR_BUILD_FOLDER/FullNode.UI
+      npm run build:prod
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
+      
+      Write-Host "$env:log_prefix packaging the FullNode.UI" -foregroundcolor "magenta"
+      npx electron-builder build --windows --$env:arch
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }     
+      Write-Host "[$env:configuration][$env:win_runtime] Finished FullNode.UI packaging" -foregroundcolor "magenta"
+      
+      dir
+      cd app-builds
+      # replace the spaces in the name with a dot as CI system have trouble handling spaces in names.
+      Dir *.exe | rename-item -newname {  $_.name  -replace " ","."  }
+      dir      
+      if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
+    
+test_script:
+- ps: |
+      Write-Host "$env:log_prefix no tests to run" -foregroundcolor "magenta"
+      #if ($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode)  }
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+# pushing all files in build directory recursively
+artifacts:
+- path: FullNode.UI\app-builds\*.exe
+  name: FullNode.UI app
+  
+#----------------------------------#
+#      deployment configuration    #
+#----------------------------------#
+
+deploy:
+- provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  auth_token:
+    secure: faXallYrtShJywqNK+adalNNl50Wjns7dFsCDDx5/eNBegshCLjfshUeMPgIX9Ld
+  draft: false
+  prerelease: true
+  force_update: true
+  on:
+    branch: master                 # release from master branch only

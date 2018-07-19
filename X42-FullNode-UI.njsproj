@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9ff872a2-d8c8-49cc-a8dd-61d7c045ad7a}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="README.md" />
+    <Content Include="FullNode.Documentation\API contribution guidelines.md" />
+    <Content Include="FullNode.Documentation\ApiSpecification.md" />
+    <Content Include="FullNode.UI\.angular-cli.json" />
+    <Content Include="FullNode.UI\electron-builder.json" />
+    <Content Include="FullNode.UI\package-lock.json" />
+    <Content Include="FullNode.UI\package.json" />
+    <Content Include="FullNode.UI\tsconfig.json" />
+    <Content Include="FullNode.UI\tslint.json" />
+    <TypeScriptCompile Include="FullNode.UI\main.ts" />
+    <Compile Include="FullNode.UI\karma.conf.js" />
+    <Compile Include="FullNode.UI\main.js" />
+    <Compile Include="FullNode.UI\postcss.config.js" />
+    <Compile Include="FullNode.UI\protractor.conf.js" />
+    <Content Include="FullNode.UI\e2e\tsconfig.e2e.json" />
+    <TypeScriptCompile Include="FullNode.UI\e2e\app.e2e-spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\e2e\app.po.ts" />
+    <Content Include="FullNode.UI\src\index.html" />
+    <Content Include="FullNode.UI\src\styles.css" />
+    <Content Include="FullNode.UI\src\tsconfig.app.json" />
+    <Content Include="FullNode.UI\src\tsconfig.spec.json" />
+    <TypeScriptCompile Include="FullNode.UI\src\main.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\polyfills.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\test.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\typings.d.ts" />
+    <Content Include="FullNode.UI\hooks\environments\README.md" />
+    <Compile Include="FullNode.UI\hooks\environments\set_profile.js" />
+    <TypeScriptCompile Include="FullNode.UI\hooks\src\app\app.config.ts" />
+    <TypeScriptCompile Include="FullNode.UI\hooks\src\app\appconfig.ts" />
+    <Content Include="FullNode.UI\src\app\app.component.html" />
+    <Content Include="FullNode.UI\src\app\app.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\app.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\app.config.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\app.module.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\environments\environment.dev.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\environments\environment.local.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\environments\environment.prod.ts" />
+    <Content Include="FullNode.UI\src\app\login\login.component.html" />
+    <Content Include="FullNode.UI\src\app\login\login.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\login\login.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\login\login.component.ts" />
+    <Content Include="FullNode.UI\src\app\setup\setup.component.html" />
+    <Content Include="FullNode.UI\src\app\setup\setup.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\setup-routing.module.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\setup.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\setup.module.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\shared.module.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\wallet.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\wallet.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\wallet-routing.module.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\wallet.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\wallet.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\wallet.module.ts" />
+    <Content Include="FullNode.UI\src\app\setup\create\create.component.html" />
+    <Content Include="FullNode.UI\src\app\setup\create\create.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\create.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\create.component.ts" />
+    <Content Include="FullNode.UI\src\app\setup\recover\recover.component.html" />
+    <Content Include="FullNode.UI\src\app\setup\recover\recover.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\recover\recover.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\recover\recover.component.ts" />
+    <Content Include="FullNode.UI\src\app\setup\create\confirm-mnemonic\confirm-mnemonic.component.html" />
+    <Content Include="FullNode.UI\src\app\setup\create\confirm-mnemonic\confirm-mnemonic.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\confirm-mnemonic\confirm-mnemonic.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\confirm-mnemonic\confirm-mnemonic.component.ts" />
+    <Content Include="FullNode.UI\src\app\setup\create\show-mnemonic\show-mnemonic.component.html" />
+    <Content Include="FullNode.UI\src\app\setup\create\show-mnemonic\show-mnemonic.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\show-mnemonic\show-mnemonic.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\setup\create\show-mnemonic\show-mnemonic.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\fee-estimation.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\mnemonic.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\transaction-building.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\transaction-info.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\transaction-sending.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\wallet-creation.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\wallet-info.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\wallet-load.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\wallet-recovery.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\directives\auto-focus.directive.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\directives\auto-focus.directive.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\directives\password-validation.directive.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\directives\password-validation.directive.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\pipes\coin-notation.pipe.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\pipes\coin-notation.pipe.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\services\api.service.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\services\global.service.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\services\modal.service.ts" />
+    <Content Include="FullNode.UI\src\app\shared\components\generic-modal\generic-modal.component.html" />
+    <Content Include="FullNode.UI\src\app\shared\components\generic-modal\generic-modal.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\components\generic-modal\generic-modal.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\components\generic-modal\generic-modal.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\dashboard\dashboard.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\dashboard\dashboard.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\dashboard\dashboard.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\dashboard\dashboard.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\history\history.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\history\history.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\history\history.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\history\history.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\logout-confirmation\logout-confirmation.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\logout-confirmation\logout-confirmation.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\logout-confirmation\logout-confirmation.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\logout-confirmation\logout-confirmation.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\menu\menu.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\menu\menu.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\menu\menu.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\menu\menu.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\receive\receive.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\receive\receive.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\receive\receive.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\receive\receive.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\send\send.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\send\send.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\send\send.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\send\send.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\status-bar\status-bar.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\status-bar\status-bar.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\status-bar\status-bar.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\status-bar\status-bar.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\transaction-details\transaction-details.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\transaction-details\transaction-details.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\transaction-details\transaction-details.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\transaction-details\transaction-details.component.ts" />
+    <Content Include="FullNode.UI\src\app\wallet\send\send-confirmation\send-confirmation.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\send\send-confirmation\send-confirmation.component.css" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\send\send-confirmation\send-confirmation.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\send\send-confirmation\send-confirmation.component.ts" />
+    <Content Include="FullNode.UI\src\assets\fonts\Linearicons-Free.svg" />
+    <Content Include="FullNode.UI\src\assets\images\license_en.txt" />
+    <Content Include="FullNode.UI\src\assets\images\icon-512x512.png" />
+    <Content Include="FullNode.UI\src\assets\images\icon-tray.png" />
+    <Content Include="FullNode.UI\src\assets\images\icon.png" />
+    <Content Include="FullNode.UI\src\assets\images\icon-tray.ico" />
+    <Content Include="FullNode.UI\src\assets\images\icon.ico" />
+    <Content Include="FullNode.UI\src\assets\images\anim.svg" />
+    <Content Include="FullNode.UI\src\assets\images\icon.svg" />
+    <Content Include="FullNode.UI\src\assets\images\logo.svg" />
+    <Content Include="FullNode.UI\src\assets\images\logo_white.svg" />
+    <Content Include="FullNode.UI\src\assets\images\notransactions.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FullNode.Documentation" />
+    <Folder Include="FullNode.UI" />
+    <Folder Include="FullNode.UI\e2e" />
+    <Folder Include="FullNode.UI\hooks" />
+    <Folder Include="FullNode.UI\hooks\environments" />
+    <Folder Include="FullNode.UI\hooks\src" />
+    <Folder Include="FullNode.UI\hooks\src\app" />
+    <Folder Include="FullNode.UI\src" />
+    <Folder Include="FullNode.UI\src\app" />
+    <Folder Include="FullNode.UI\src\app\login" />
+    <Folder Include="FullNode.UI\src\app\setup" />
+    <Folder Include="FullNode.UI\src\app\setup\create" />
+    <Folder Include="FullNode.UI\src\app\setup\create\confirm-mnemonic" />
+    <Folder Include="FullNode.UI\src\app\setup\create\show-mnemonic" />
+    <Folder Include="FullNode.UI\src\app\setup\recover" />
+    <Folder Include="FullNode.UI\src\app\shared" />
+    <Folder Include="FullNode.UI\src\app\shared\classes" />
+    <Folder Include="FullNode.UI\src\app\shared\components" />
+    <Folder Include="FullNode.UI\src\app\shared\components\generic-modal" />
+    <Folder Include="FullNode.UI\src\app\shared\directives" />
+    <Folder Include="FullNode.UI\src\app\shared\pipes" />
+    <Folder Include="FullNode.UI\src\app\shared\services" />
+    <Folder Include="FullNode.UI\src\app\wallet" />
+    <Folder Include="FullNode.UI\src\app\wallet\dashboard" />
+    <Folder Include="FullNode.UI\src\app\wallet\history" />
+    <Folder Include="FullNode.UI\src\app\wallet\logout-confirmation" />
+    <Folder Include="FullNode.UI\src\app\wallet\menu" />
+    <Folder Include="FullNode.UI\src\app\wallet\receive" />
+    <Folder Include="FullNode.UI\src\app\wallet\send" />
+    <Folder Include="FullNode.UI\src\app\wallet\send\send-confirmation" />
+    <Folder Include="FullNode.UI\src\app\wallet\status-bar" />
+    <Folder Include="FullNode.UI\src\app\wallet\transaction-details" />
+    <Folder Include="FullNode.UI\src\assets" />
+    <Folder Include="FullNode.UI\src\assets\fonts" />
+    <Folder Include="FullNode.UI\src\assets\images" />
+    <Folder Include="FullNode.UI\src\environments" />
+    <Folder Include="FullNode.UI\src\scss" />
+    <Folder Include="FullNode.UI\src\scss\mixins" />
+    <Folder Include="FullNode.UI\src\scss\themes" />
+    <Folder Include="FullNode.UI\src\scss\utilities" />
+    <Folder Include="Scripts" />
+    <Folder Include="StratisBitcoinFullNode" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

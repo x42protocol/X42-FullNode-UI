@@ -1,0 +1,17 @@
+<!-- MENU -->
+<section id="GUI" class="light">
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <span class="navbar-text">{{ walletName }}</span>
+    <span class="navbar-brand align-middle">
+      <a (click)="goToDashboard()">
+        <img src="./assets/images/logo.svg" width="36" height="36" alt="X42">
+      </a>
+    </span>
+    <form class="form-inline">
+      <a data-toggle="modal" role="button" (click)="logOut()">
+        <i class="lnr lnr-exit"></i>
+      </a>
+    </form>
+  </nav>
+</section>
+<!-- /MENU -->

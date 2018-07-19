@@ -1,0 +1,13 @@
+<!-- MODAL GENERIC -->
+<div class="modal-header">
+  <h5 class="modal-title">{{ title }}</h5>
+</div>
+<div class="modal-body">
+    <div [innerHTML]="body">
+</div>
+</div>
+<!-- /modal-body -->
+<div class="modal-footer">
+<button type="button" class="btn btn-lg btn-primary btn-block" (click)="activeModal.close('Close click')">OK</button>
+</div>
+<!-- /MODAL GENERIC -->
