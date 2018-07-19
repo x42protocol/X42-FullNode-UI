@@ -21,6 +21,8 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="FullNode.UI\src\assets\images\icon.icns" />
+    <Content Include="FullNode.UI\src\assets\images\logo.png" />
     <Content Include="README.md" />
     <Content Include="FullNode.Documentation\API contribution guidelines.md" />
     <Content Include="FullNode.Documentation\ApiSpecification.md" />
