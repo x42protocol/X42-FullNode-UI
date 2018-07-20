@@ -1,6 +1,6 @@
 {
-  "appId": "com.X42platform.core",
-  "productName": "X42 Core",
+  "appId": "com.x42platform.core",
+  "productName": "x42 Core",
   "publish": null,
   "directories": {
     "output": "app-builds"
@@ -18,7 +18,7 @@
       "deb",
       "tar.gz"
     ],
-    "synopsis": "FullNode.UI: X42' staking wallet.",
+    "synopsis": "FullNode.UI: x42' staking wallet.",
     "category": "Utility",
     "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
   },

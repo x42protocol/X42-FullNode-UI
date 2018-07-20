@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   }
 
   private setTitle() {
-    let applicationName = "X42 Core";
+    let applicationName = "x42 Core";
     let applicationVersion = this.electronService.remote.app.getVersion();
     let releaseCycle = "beta";
     let newTitle = applicationName + " v" + applicationVersion + " " + releaseCycle;

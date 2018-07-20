@@ -52,7 +52,7 @@ export class ReceiveComponent {
         response => {
           if (response.status >= 200 && response.status < 400) {
             this.address = response.json();
-            this.qrString = "X42:" + response.json();
+            this.qrString = "x42:" + response.json();
           }
         },
         error => {

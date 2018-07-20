@@ -19,7 +19,7 @@ Download and install the latest Long Term Support (LTS) version of NodeJS at: ht
 Clone this repository locally:
 
 ``` bash
-git clone https://www.github.com/x42project/FullNodeUI
+git clone https://github.com/x42protocol/X42-FullNode-UI
 ```
 
 Navigate to the FullNodeUI folder in a terminal:
@@ -38,7 +38,7 @@ npm install
 ## Run the UI in development mode
 
 #### Terminal Window 1
-[Run the daemon](https://github.com/DennisAMenace/x42FullNode/blob/master/Documentation/getting-started.md)  
+[Run the daemon](https://github.com/x42protocol/X42-FullNode/blob/master/Documentation/getting-started.md)  
 
 #### Terminal Window 2
 Use `npm run mainnet` to start the UI in mainnet mode or `npm run testnet` to start the UI in testnet mode.  

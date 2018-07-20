@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'history', component: HistoryComponent}
     ]
   },
-  { path: 'X42-wallet', component: WalletComponent,
+  { path: 'x42-wallet', component: WalletComponent,
   children: [
     { path: '', redirectTo:'dashboard', pathMatch:'full' },
     { path: 'dashboard', component: DashboardComponent},

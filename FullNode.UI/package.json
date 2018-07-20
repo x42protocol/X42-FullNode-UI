@@ -1,24 +1,25 @@
 {
-  "name": "X42-core",
-  "description": "X42 Core Wallet",
+  "name": "x42-core",
+  "description": "x42 Core Wallet",
   "version": "0.2.0",
   "author": {
-    "name": "X42 Group",
-    "email": "info@X42platform.com"
+    "name": "x42 Group",
+    "email": "admin@x42.tech"
   },
   "license": "MIT",
-  "homepage": "https://github.com/X42project/fullnodeui",
+  "homepage": "https://github.com/x42protocol/X42-FullNode-UI",
   "keywords": [
     "fullnode",
     "ui",
-    "X42",
+    "x42",
     "core",
     "bitcoin",
     "angular",
     "electron",
     "typescript",
     "scss",
-    "bootstrap"
+    "bootstrap",
+    "stratis"
   ],
   "main": "main.js",
   "private": true,

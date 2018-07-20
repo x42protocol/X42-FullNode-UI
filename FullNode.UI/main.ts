@@ -42,7 +42,7 @@ function createWindow() {
     frame: true,
     minWidth: 1150,
     minHeight: 650,
-    title: "X42 Core"
+    title: "x42 Core"
   });
 
   if (serve) {
@@ -80,7 +80,7 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   if (serve) {
-    console.log("X42 UI was started in development mode. This requires the user to be running the X42 Full Node Daemon himself.")
+    console.log("x42 UI was started in development mode. This requires the user to be running the x42 Full Node Daemon.")
   }
   else {
     startX42Api();
@@ -168,7 +168,7 @@ function startX42Api() {
   }
 
   X42Process.stdout.on('data', (data) => {
-    writeLog(`X42: ${data}`);
+    writeLog(`x42: ${data}`);
   });
 }
 
@@ -196,7 +196,7 @@ function createTray() {
       }
     }
   ]);
-  systemTray.setToolTip('X42 Core');
+  systemTray.setToolTip('x42 Core');
   systemTray.setContextMenu(contextMenu);
   systemTray.on('click', function() {
     if (!mainWindow.isVisible()) {
