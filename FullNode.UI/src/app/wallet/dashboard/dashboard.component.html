@@ -9,7 +9,7 @@
               <h5>Spendable balance</h5>
               <p class="lead">
                 <strong>{{ (confirmedBalance | coinNotation) || (0 | coinNotation) }}</strong>
-                <small> {{ coinUnit }}</>
+                <big> {{ coinUnit }}<big/>
               </p>
               <ul class="list-unstyled">
                 <li><strong>{{ (unconfirmedBalance | coinNotation) || (0 | coinNotation) }}</strong><em> (unconfirmed)</em></li>
