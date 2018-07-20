@@ -11,9 +11,9 @@ testnet = args.some(val => val === "--testnet" || val === "-testnet");
 
 let apiPort;
 if (testnet) {
-  apiPort = 38222;
+  apiPort = 42220;
 } else {
-  apiPort = 37222;
+  apiPort = 42220;
 }
 
 ipcMain.on('get-port', (event, arg) => {
@@ -119,7 +119,7 @@ function closeX42Api() {
     var http2 = require('http');
     const options1 = {
       hostname: 'localhost',
-      port: 37222,
+      port: 42220,
       path: '/api/node/shutdown',
       method: 'POST'
     };
@@ -132,7 +132,7 @@ function closeX42Api() {
      var http2 = require('http');
      const options2 = {
        hostname: 'localhost',
-       port: 38222,
+       port: 42220,
        path: '/api/node/shutdown',
        method: 'POST'
      };
