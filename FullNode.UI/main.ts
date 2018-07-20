@@ -150,7 +150,7 @@ function startX42Api() {
   //Start X42 Daemon
   let apiPath = path.resolve(__dirname, 'assets//daemon//X42.X42D');
   if (os.platform() === 'win32') {
-    apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\X42.X42D.exe');
+    apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\X42.exe');
   } else if(os.platform() === 'linux') {
 	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//X42.X42D');
   } else {
