@@ -41,7 +41,7 @@ export class CoinNotationPipe implements PipeTransform {
         case "mx42":
           temp = value / 100000;
           return temp.toFixed(this.decimalLimit);
-        case "ux42":
+        case "μx42":
           temp = value / 100;
           return temp.toFixed(this.decimalLimit);
         case "Tx42":
