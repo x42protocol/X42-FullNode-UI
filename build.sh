@@ -25,7 +25,7 @@ echo $log_prefix STARTED restoring dotnet and npm packages
 cd $TRAVIS_BUILD_DIR
 git submodule update --init --recursive
 
-cd $TRAVIS_BUILD_DIR/FullNodeX42-FullNode-UI
+cd $TRAVIS_BUILD_DIR/X42-FullNode-UI
 
 npm install
 npm install -g npx
@@ -45,7 +45,7 @@ echo $log_prefix running 'npm run'
 npm run build:prod
 
 # node packaging
-echo $log_prefix packaging FullNode.UI 
+echo $log_prefix packaging X42-FullNode-UI
 if [ "$TRAVIS_OS_NAME" = "osx" ]
 then
   npx electron-builder build --mac --$arch
