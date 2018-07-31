@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit {
   public isStarting: boolean;
   public isStopping: boolean;
   public hasBalance: boolean = false;
+  public totalBalance: number = 0;
 
   ngOnInit() {
     this.startSubscriptions();
@@ -87,6 +88,7 @@ export class DashboardComponent implements OnInit {
           if (response.status >= 200 && response.status < 400) {
               let balanceResponse = response.json();
               //TO DO - add account feature instead of using first entry in array
+              this.totalBalance = balanceResponse.balances[0].amountConfirmed + balanceResponse.balances[0].amountUnconfirmed;
               this.confirmedBalance = balanceResponse.balances[0].amountConfirmed;
               this.unconfirmedBalance = balanceResponse.balances[0].amountUnconfirmed;
               if ((this.confirmedBalance + this.unconfirmedBalance) > 0) {
