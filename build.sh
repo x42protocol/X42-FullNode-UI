@@ -25,7 +25,7 @@ echo $log_prefix STARTED restoring dotnet and npm packages
 cd $TRAVIS_BUILD_DIR
 git submodule update --init --recursive
 
-cd $TRAVIS_BUILD_DIR/FullNode.UI
+cd $TRAVIS_BUILD_DIR/FullNodeX42-FullNode-UI
 
 npm install
 npm install -g npx
@@ -33,14 +33,14 @@ echo $log_prefix FINISHED restoring dotnet and npm packages
 
 # dotnet publish
 echo $log_prefix running 'dotnet publish'
-cd $TRAVIS_BUILD_DIR/StratisBitcoinFullNode/src/Stratis.StratisD
-dotnet publish -c $configuration -r $TRAVIS_OS_NAME-$arch -v m -o $TRAVIS_BUILD_DIR/FullNode.UI/daemon
+cd $TRAVIS_BUILD_DIR/X42-FullNode/src/X42.X42D
+dotnet publish -c $configuration -r $TRAVIS_OS_NAME-$arch -v m -o $TRAVIS_BUILD_DIR/X42-FullNode-UI/daemon
 
-echo $log_prefix chmoding the Stratis.StratisD file
-chmod +x $TRAVIS_BUILD_DIR/FullNode.UI/daemon/Stratis.StratisD
+echo $log_prefix chmoding the X42.X42D file
+chmod +x $TRAVIS_BUILD_DIR/X42-FullNode-UI/daemon/X42.X42D
 
 # node Build
-cd $TRAVIS_BUILD_DIR/FullNode.UI
+cd $TRAVIS_BUILD_DIR/X42-FullNode-UI
 echo $log_prefix running 'npm run'
 npm run build:prod
 
@@ -63,7 +63,7 @@ cd $TRAVIS_BUILD_DIR
 ls
 
 echo $log_prefix contents of the app-builds folder
-cd $TRAVIS_BUILD_DIR/FullNode.UI/app-builds/
+cd $TRAVIS_BUILD_DIR/X42-FullNode-UI/app-builds/
 # replace the spaces in the name with a dot as CI system have trouble handling spaces in names.
 for file in *.{dmg,tar.gz,deb}; do mv "$file" `echo $file | tr ' ' '.'` 2>/dev/null || : ; done
 
