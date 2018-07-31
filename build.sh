@@ -33,7 +33,7 @@ echo $log_prefix FINISHED restoring dotnet and npm packages
 
 # dotnet publish
 echo $log_prefix running 'dotnet publish'
-cd $TRAVIS_BUILD_DIR/X42-FullNode/src/X42.X42D
+cd $TRAVIS_BUILD_DIR/X42-FullNode/src/x42.x42D
 dotnet publish -c $configuration -r $TRAVIS_OS_NAME-$arch -v m -o $TRAVIS_BUILD_DIR/X42-FullNode-UI/daemon
 
 echo $log_prefix chmoding the X42.X42D file
