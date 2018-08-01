@@ -148,13 +148,13 @@ function startX42Api() {
   const spawnX42 = require('child_process').spawn;
 
   //Start X42 Daemon
-  let apiPath = path.resolve(__dirname, 'assets//daemon//X42.X42D');
+  let apiPath = path.resolve(__dirname, 'assets//daemon//x42.x42D');
   if (os.platform() === 'win32') {
-    apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\X42.X42D.exe');
+    apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\x42.x42D.exe');
   } else if(os.platform() === 'linux') {
-	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//X42.X42D');
+	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
   } else {
-	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//X42.X42D');
+	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
   }
 
   if (!testnet) {
