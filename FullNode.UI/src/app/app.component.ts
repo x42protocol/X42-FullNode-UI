@@ -25,12 +25,35 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.setTitle();
-    this.apiService.getWalletFiles().delay(5000).retryWhen(errors => errors.delay(2000)).subscribe(() => this.startApp());
+    this.apiService.getWalletFiles().delay(1000).retryWhen(errors => errors.delay(2000)).subscribe(() => this.startApp());
+  }
+
+  ngOnDestroy() {
+    this.stopApp();
   }
 
   private startApp() {
     this.loading = false;
     this.router.navigate(['/login']);
+  }
+
+  private stopApp() {
+    console.log("Shutting Down..");
+    this.apiService.shutdownNode().subscribe(
+      response => {
+        if (response.status >= 200 && response.status < 400) {
+          let stakingResponse = response.json()
+          console.log("Success");
+        }
+      },
+      error => {
+        if (error.status === 0) {
+          console.log("error 1" + error);
+        } else if (error.status >= 400) {
+          console.log("error 2 " + error);
+        }
+      }
+    );
   }
 
   private setTitle() {

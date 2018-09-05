@@ -62,8 +62,9 @@ function createWindow() {
   }
 
   // Emitted when the window is going to close.
-  mainWindow.on('close', () => {
-  })
+  mainWindow.on('close', function (e) {
+    closeX42Api();
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
@@ -87,7 +88,7 @@ app.on('ready', () => {
   }
   createTray();
   createWindow();
-  if (os.platform() === 'darwin'){
+  if (os.platform() === 'darwin') {
     createMenu();
   }
 });
@@ -114,33 +115,25 @@ app.on('activate', () => {
 });
 
 function closeX42Api() {
-  // if (process.platform !== 'darwin' && !serve) {
-    if (process.platform !== 'darwin' && !serve && !testnet) {
-    var http2 = require('http');
-    const options1 = {
-      hostname: 'localhost',
-      port: 42220,
-      path: '/api/node/shutdown',
-      method: 'POST'
-    };
+  var http = require('http');
+  var body = JSON.stringify({});
 
-   const req = http2.request(options1, (res) => {});
-   req.write('');
-   req.end();
+  var request = new http.ClientRequest({
+    hostname: "localhost",
+    port: 42220,
+    path: "/api/node/shutdown",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Content-Length": Buffer.byteLength(body)
+    }
+  })
 
-   } else if (process.platform !== 'darwin' && !serve && testnet) {
-     var http2 = require('http');
-     const options2 = {
-       hostname: 'localhost',
-       port: 42220,
-       path: '/api/node/shutdown',
-       method: 'POST'
-     };
+  request.on('error', function (e) { });
+  request.on('timeout', function (e) { request.abort(); });
+  request.on('uncaughtException', function (e) { request.abort(); });
 
-   const req = http2.request(options2, (res) => {});
-   req.write('');
-   req.end();
-   }
+  request.end(body);
 };
 
 function startX42Api() {
@@ -151,10 +144,10 @@ function startX42Api() {
   let apiPath = path.resolve(__dirname, 'assets//daemon//x42.x42D');
   if (os.platform() === 'win32') {
     apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\x42.x42D.exe');
-  } else if(os.platform() === 'linux') {
-	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
+  } else if (os.platform() === 'linux') {
+    apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
   } else {
-	  apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
+    apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
   }
 
   if (!testnet) {
@@ -185,20 +178,20 @@ function createTray() {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Hide/Show',
-      click: function() {
+      click: function () {
         mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
       }
     },
     {
       label: 'Exit',
-      click: function() {
+      click: function () {
         app.quit();
       }
     }
   ]);
   systemTray.setToolTip('x42 Core');
   systemTray.setContextMenu(contextMenu);
-  systemTray.on('click', function() {
+  systemTray.on('click', function () {
     if (!mainWindow.isVisible()) {
       mainWindow.show();
     }
@@ -222,8 +215,9 @@ function createMenu() {
     label: app.getName(),
     submenu: [
       { label: "About " + app.getName(), selector: "orderFrontStandardAboutPanel:" },
-      { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
-    ]}, {
+      { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } }
+    ]
+  }, {
     label: "Edit",
     submenu: [
       { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
@@ -232,7 +226,8 @@ function createMenu() {
       { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
       { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
       { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-    ]}
+    ]
+  }
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
