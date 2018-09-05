@@ -1,7 +1,7 @@
 {
-  "name": "x42-core",
+  "name": "x42-Core",
   "description": "x42 Core Wallet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "X42",
     "email": "admin@x42.tech"
