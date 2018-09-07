@@ -41,7 +41,7 @@ export class StatusBarComponent implements OnInit {
     let walletInfo = new WalletInfo(this.globalService.getWalletName())
     this.generalWalletInfoSubscription = this.apiService.getGeneralInfo(walletInfo)
       .subscribe(
-        response =>  {
+        response => {
           if (response.status >= 200 && response.status < 400) {
             let generalWalletInfoResponse = response.json();
             this.lastBlockSyncedHeight = generalWalletInfoResponse.lastBlockSyncedHeight;
@@ -50,11 +50,8 @@ export class StatusBarComponent implements OnInit {
             this.connectedNodes = generalWalletInfoResponse.connectedNodes;
 
             this.syncedProgress = this.lastBlockSyncedHeight + " blocks out of " + this.chainTip + " synced.";
-
-            if(!this.isChainSynced) {
-              this.percentSynced = "syncing...";
-            }
-            else {
+            console.log(generalWalletInfoResponse);
+            if (this.connectedNodes > 0) {
               this.percentSyncedNumber = ((this.lastBlockSyncedHeight / this.chainTip) * 100);
               if (this.percentSyncedNumber.toFixed(0) === "100" && this.lastBlockSyncedHeight != this.chainTip) {
                 this.percentSyncedNumber = 99;
@@ -63,6 +60,9 @@ export class StatusBarComponent implements OnInit {
                 this.syncedProgress = this.lastBlockSyncedHeight + " blocks."
               }
               this.percentSynced = this.percentSyncedNumber.toFixed(0) + '%';
+            }
+            else {
+              this.percentSynced = "Connecting...";
             }
           }
         },
@@ -86,13 +86,13 @@ export class StatusBarComponent implements OnInit {
           }
         }
       )
-    ;
+      ;
   };
 
   private getStakingInfo() {
     this.apiService.getStakingInfo()
       .subscribe(
-        response =>  {
+        response => {
           if (response.status >= 200 && response.status < 400) {
             let stakingResponse = response.json()
             this.stakingEnabled = stakingResponse.enabled;
@@ -111,14 +111,14 @@ export class StatusBarComponent implements OnInit {
           }
         }
       )
-    ;
+      ;
   }
 
   private cancelSubscriptions() {
-    if(this.generalWalletInfoSubscription) {
+    if (this.generalWalletInfoSubscription) {
       this.generalWalletInfoSubscription.unsubscribe();
     }
-    
+
     if (this.stakingInfoSubscription) {
       this.stakingInfoSubscription.unsubscribe();
     }
