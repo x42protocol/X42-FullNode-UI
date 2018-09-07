@@ -113,8 +113,8 @@ export class LoginComponent implements OnInit {
   public onDecryptClicked() {
     this.isDecrypting = true;
     this.globalService.setWalletName(this.openWalletForm.get("selectWallet").value);
-    this.globalService.setCoinName("Testx42");
-    this.globalService.setCoinUnit("Tx42");
+    this.globalService.setCoinName("x42");
+    this.globalService.setCoinUnit("x42");
     this.getCurrentNetwork();
     let walletLoad = new WalletLoad(
       this.openWalletForm.get("selectWallet").value,

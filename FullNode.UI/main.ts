@@ -7,7 +7,7 @@ let serve;
 let testnet;
 const args = process.argv.slice(1);
 serve = args.some(val => val === "--serve" || val === "-serve");
-testnet = args.some(val => val === "--testnet" || val === "-testnet");
+testnet = false; // TODO: Add testnet. args.some(function (val) { return val === "--testnet" || val === "-testnet"; });
 
 let apiPort;
 if (testnet) {
