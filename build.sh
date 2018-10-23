@@ -49,6 +49,8 @@ echo $log_prefix packaging FullNode.UI
 if [ "$TRAVIS_OS_NAME" = "osx" ]
 then
   npx electron-builder build --mac --$arch
+elif [ ${OS} == "arm"]
+  npx electron-builder build --linux --armv7l
 else
   npx electron-builder build --linux --$arch
 fi
