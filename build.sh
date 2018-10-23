@@ -50,8 +50,9 @@ if [ "$TRAVIS_OS_NAME" = "osx" ]
 then
   npx electron-builder build --mac --$arch
 elif [ ${OS} == "arm"]
+then
   npx electron-builder build --linux --armv7l
-elif [ "$TRAVIS_OS_NAME" = "linux" ]
+else
   npx electron-builder build --linux --$arch
 fi
 
