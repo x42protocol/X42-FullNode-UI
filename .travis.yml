@@ -7,6 +7,9 @@ matrix:
   - os: linux # Ubuntu 14.04
     dist: trusty
     sudo: required
+  - os: arm # Ubuntu 14.04
+    dist: trusty
+    sudo: required
   - os: osx # OSX 10.12
     osx_image: xcode9
     before_install:
