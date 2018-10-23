@@ -7,12 +7,14 @@ matrix:
   - os: linux # Ubuntu 14.04
     dist: trusty
     sudo: required
+    env: OS=linux arch=x64
   - os: linux # Ubuntu 14.04 (ARM)
     dist: trusty
     sudo: required
-    env: OS=arm
+    env: OS=arm arch=arm
   - os: osx # OSX 10.12
     osx_image: xcode9
+    env: OS=osx arch=x64
     before_install:
     - brew update
     - curl https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
@@ -30,7 +32,6 @@ branches:
 env:
   global:
   - log_prefix=[$TRAVIS_OS_NAME]
-  - arch=x64
   - configuration=Release  
   - os_platform=linux
   - CSC_IDENTITY_AUTO_DISCOVERY=false 
