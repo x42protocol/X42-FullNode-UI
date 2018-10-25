@@ -7,12 +7,9 @@
 
 #### Step 1. 
 
-Download the x42.Core-v0.1.8-linux-armv7l.deb file from [here](https://github.com/x42protocol/X42-FullNode-UI/releases)
-    
-or
-    
-In a terminal run     
-```wget https://github.com/x42protocol/X42-FullNode-UI/releases/tag/v0.1.8/x42.Core-v0.1.8-linux-armv7l.deb```
+Using your browser, Download the x42.Core-v0.1.8-linux-armv7l.deb file from [here](https://github.com/x42protocol/X42-FullNode-UI/releases)
+
+*NOTE: wget and curl have been seen to cause issues with the file download*
 
 #### Step 2.
 
