@@ -196,7 +196,7 @@ export class SendComponent implements OnInit {
       this.sendForm.get("fee").value,
       // TO DO: use coin notation
       this.estimatedFee / 100000000,
-      true,
+      false,
       false
     );
 

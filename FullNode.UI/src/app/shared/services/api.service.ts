@@ -22,6 +22,21 @@ import { TransactionSending } from '../classes/transaction-sending';
 /**
  * For information on the API specification have a look at our swagger files located at http://localhost:5000/swagger/ when running the daemon
  */
+
+export class Recipient {
+  public DestinationAddress: string = "";
+  public Amount: string = "";
+}
+
+export class TxFeeEstimateRequest {
+  public WalletName: string = "";
+  public AccountName: string = "";
+  public Recipients: Array<Recipient> = [];
+  public FeeType: string = "";
+  public AllowUnconfirmed: boolean = false;
+  public ShuffleOutputs: boolean = false;
+}
+
 @Injectable()
 export class ApiService {
     constructor(private http: Http, private globalService: GlobalService, private electronService: ElectronService) {
@@ -212,16 +227,19 @@ export class ApiService {
      * Estimate the fee of a transaction
      */
     estimateFee(data: FeeEstimation): Observable<any> {
-      let params: URLSearchParams = new URLSearchParams();
-      params.set('walletName', data.walletName);
-      params.set('accountName', data.accountName);
-      params.set('destinationAddress', data.destinationAddress);
-      params.set('amount', data.amount);
-      params.set('feeType', data.feeType);
-      params.set('allowUnconfirmed', "true");
+      let txFeeEstimateRequest: TxFeeEstimateRequest = new TxFeeEstimateRequest();
+      let recipient: Recipient = new Recipient();
+      recipient.DestinationAddress = data.destinationAddress;
+      recipient.Amount = data.amount;
+      txFeeEstimateRequest.Recipients.push(recipient);
 
+      txFeeEstimateRequest.WalletName = data.walletName;
+      txFeeEstimateRequest.AccountName = data.accountName;
+      txFeeEstimateRequest.FeeType = data.feeType;
+      txFeeEstimateRequest.WalletName = data.walletName;
+      
       return this.http
-        .get(this.X42ApiUrl + '/wallet/estimate-txfee', new RequestOptions({headers: this.headers, search: params}))
+        .get(this.X42ApiUrl + '/wallet/addresses', new RequestOptions({ headers: this.headers, search: txFeeEstimateRequest }))
         .map((response: Response) => response);
     }
 
