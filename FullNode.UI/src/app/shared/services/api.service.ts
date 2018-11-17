@@ -33,7 +33,7 @@ export class TxFeeEstimateRequest {
   public AccountName: string = "";
   public Recipients: Array<Recipient> = [];
   public FeeType: string = "";
-  public AllowUnconfirmed: boolean = false;
+  public AllowUnconfirmed: boolean = true;
   public ShuffleOutputs: boolean = false;
 }
 
