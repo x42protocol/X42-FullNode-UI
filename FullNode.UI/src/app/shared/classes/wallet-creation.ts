@@ -4,7 +4,7 @@ export class WalletCreation {
     this.name = name;
     this.mnemonic = mnemonic;
     this.password = password;
-    this.passphrase = passphrase; 
+    this.passphrase = passphrase;
     this.folderPath = folderPath;
   }
 

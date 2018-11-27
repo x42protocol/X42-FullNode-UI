@@ -21,6 +21,20 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="FullNode.UI\src\app\wallet\address-book\address-book.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\address-book\address-book.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\address-book\modals\add-new-address\add-new-address.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\address-book\modals\add-new-address\add-new-address.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\advanced.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\advanced.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\about\about.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\about\about.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\ext-pubkey\ext-pubkey.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\ext-pubkey\ext-pubkey.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\generate-addresses\generate-addresses.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\generate-addresses\generate-addresses.component.html" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\resync\resync.component.css" />
+    <Content Include="FullNode.UI\src\app\wallet\advanced\components\resync\resync.component.html" />
     <Content Include="FullNode.UI\src\assets\images\icon.icns" />
     <Content Include="FullNode.UI\src\assets\images\logo.png" />
     <Content Include="README.md" />
@@ -44,6 +58,23 @@
     <Content Include="FullNode.UI\src\styles.css" />
     <Content Include="FullNode.UI\src\tsconfig.app.json" />
     <Content Include="FullNode.UI\src\tsconfig.spec.json" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\address-label.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\classes\serialDisposable.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\shared\services\features.service.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\address-book\address-book.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\address-book\address-book.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\address-book\modals\add-new-address\add-new-address.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\address-book\modals\add-new-address\add-new-address.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\advanced.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\advanced.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\about\about.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\about\about.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\ext-pubkey\ext-pubkey.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\ext-pubkey\ext-pubkey.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\generate-addresses\generate-addresses.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\generate-addresses\generate-addresses.component.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\resync\resync.component.spec.ts" />
+    <TypeScriptCompile Include="FullNode.UI\src\app\wallet\advanced\components\resync\resync.component.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\main.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\polyfills.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\test.ts" />
@@ -189,6 +220,15 @@
     <Folder Include="FullNode.UI\src\app\shared\pipes" />
     <Folder Include="FullNode.UI\src\app\shared\services" />
     <Folder Include="FullNode.UI\src\app\wallet" />
+    <Folder Include="FullNode.UI\src\app\wallet\address-book\" />
+    <Folder Include="FullNode.UI\src\app\wallet\address-book\modals\" />
+    <Folder Include="FullNode.UI\src\app\wallet\address-book\modals\add-new-address\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\components\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\components\about\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\components\ext-pubkey\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\components\generate-addresses\" />
+    <Folder Include="FullNode.UI\src\app\wallet\advanced\components\resync\" />
     <Folder Include="FullNode.UI\src\app\wallet\dashboard" />
     <Folder Include="FullNode.UI\src\app\wallet\history" />
     <Folder Include="FullNode.UI\src\app\wallet\logout-confirmation" />

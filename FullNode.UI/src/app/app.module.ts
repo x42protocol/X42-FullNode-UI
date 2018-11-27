@@ -7,10 +7,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgxElectronModule } from 'ngx-electron';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-
 import { SharedModule } from './shared/shared.module';
-
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,13 +18,13 @@ import { GenericModalComponent } from './shared/components/generic-modal/generic
 import { ApiService } from './shared/services/api.service';
 import { GlobalService } from './shared/services/global.service';
 import { ModalService } from './shared/services/modal.service';
+import { FeaturesService } from './shared/services/features.service';
 
 import { SendComponent } from './wallet/send/send.component';
 import { SendConfirmationComponent } from './wallet/send/send-confirmation/send-confirmation.component';
 import { ReceiveComponent } from './wallet/receive/receive.component';
 import { TransactionDetailsComponent } from './wallet/transaction-details/transaction-details.component';
 import { LogoutConfirmationComponent } from './wallet/logout-confirmation/logout-confirmation.component';
-
 
 @NgModule({
   imports: [
@@ -39,6 +38,7 @@ import { LogoutConfirmationComponent } from './wallet/logout-confirmation/logout
     NgbModule.forRoot(),
     NgxElectronModule,
     NgxQRCodeModule,
+    NgxPaginationModule,
     SharedModule.forRoot()
   ],
   declarations: [
@@ -59,8 +59,8 @@ import { LogoutConfirmationComponent } from './wallet/logout-confirmation/logout
     TransactionDetailsComponent,
     LogoutConfirmationComponent
   ],
-  providers: [ ApiService, GlobalService, ModalService, Title ],
-  bootstrap: [ AppComponent ]
+  providers: [ApiService, GlobalService, ModalService, Title, FeaturesService],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

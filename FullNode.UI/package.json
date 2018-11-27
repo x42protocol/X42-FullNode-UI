@@ -1,7 +1,7 @@
 {
   "name": "x42-Core",
   "description": "x42 Core Wallet",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "author": {
     "name": "X42",
     "email": "admin@x42.tech"
@@ -89,6 +89,7 @@
     "ngx-bootstrap": "2.0.3",
     "ngx-clipboard": "10.0.0",
     "ngx-electron": "1.0.4",
+    "ngx-pagination": "3.2.1",
     "node-sass": "4.8.3",
     "npm-run-all": "4.1.2",
     "npx": "10.0.1",

@@ -25,6 +25,7 @@ export class HistoryComponent {
 
   public transactions: TransactionInfo[];
   public coinUnit: string;
+  public pageNumber: number = 1;
   private errorMessage: string;
   private walletHistorySubscription: Subscription;
 
@@ -55,7 +56,7 @@ export class HistoryComponent {
         response => {
           if (response.status >= 200 && response.status < 400) {
             //TO DO - add account feature instead of using first entry in array
-            if (response.json().history[0].transactionsHistory.length > 0) {
+            if (!!response.json().history && response.json().history[0].transactionsHistory.length > 0) {
               historyResponse = response.json().history[0].transactionsHistory;
               this.getTransactionInfo(historyResponse);
             }

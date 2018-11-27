@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 
 import { ApiService } from '../../shared/services/api.service';
@@ -24,7 +24,8 @@ import 'rxjs/add/operator/debounceTime';
   styleUrls: ['./send.component.css'],
 })
 
-export class SendComponent implements OnInit {
+export class SendComponent implements OnInit, OnDestroy {
+  @Input() address: string;
   constructor(private apiService: ApiService, private globalService: GlobalService, private modalService: NgbModal, private genericModalService: ModalService, public activeModal: NgbActiveModal, private fb: FormBuilder) {
     this.buildSendForm();
   }
@@ -32,7 +33,7 @@ export class SendComponent implements OnInit {
   public sendForm: FormGroup;
   public coinUnit: string;
   public isSending: boolean = false;
-  public estimatedFee: number = -1;
+  public estimatedFee: number = 0;
   public totalBalance: number = 0;
   public apiError: string;
   private transactionHex: string;
@@ -44,6 +45,9 @@ export class SendComponent implements OnInit {
   ngOnInit() {
     this.startSubscriptions();
     this.coinUnit = this.globalService.getCoinUnit();
+    if (this.address) {
+      this.sendForm.patchValue({ 'address': this.address })
+    }
   }
 
   ngOnDestroy() {
@@ -53,7 +57,7 @@ export class SendComponent implements OnInit {
   private buildSendForm(): void {
     this.sendForm = this.fb.group({
       "address": ["", Validators.compose([Validators.required, Validators.minLength(26)])],
-      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00000001), (control: AbstractControl) => Validators.max((this.totalBalance - this.estimatedFee)/100000000)(control)])],
+      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00000001), (control: AbstractControl) => Validators.max((this.totalBalance - this.estimatedFee) / 100000000)(control)])],
       "fee": ["medium", Validators.required],
       "password": ["", Validators.required]
     });
@@ -79,7 +83,7 @@ export class SendComponent implements OnInit {
 
     this.apiError = "";
 
-    if(this.sendForm.get("address").valid && this.sendForm.get("amount").valid) {
+    if (this.sendForm.get("address").valid && this.sendForm.get("amount").valid) {
       this.estimateFee();
     }
   }
@@ -122,7 +126,7 @@ export class SendComponent implements OnInit {
       .getMaximumBalance(data)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400){
+          if (response.status >= 200 && response.status < 400) {
             balanceResponse = response.json();
           }
         },
@@ -142,7 +146,7 @@ export class SendComponent implements OnInit {
           }
         },
         () => {
-          this.sendForm.patchValue({amount: +new CoinNotationPipe(this.globalService).transform(balanceResponse.maxSpendableAmount)});
+          this.sendForm.patchValue({ amount: +new CoinNotationPipe(this.globalService).transform(balanceResponse.maxSpendableAmount) });
           this.estimatedFee = balanceResponse.fee;
         }
       )
@@ -161,7 +165,7 @@ export class SendComponent implements OnInit {
     this.apiService.estimateFee(transaction)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400){
+          if (response.status >= 200 && response.status < 400) {
             this.responseMessage = response.json();
           }
         },
@@ -183,7 +187,7 @@ export class SendComponent implements OnInit {
           this.estimatedFee = this.responseMessage;
         }
       )
-    ;
+      ;
   }
 
   public buildTransaction() {
@@ -193,21 +197,19 @@ export class SendComponent implements OnInit {
       this.sendForm.get("password").value,
       this.sendForm.get("address").value.trim(),
       this.sendForm.get("amount").value,
-      this.sendForm.get("fee").value,
+      //this.sendForm.get("fee").value,
       // TO DO: use coin notation
       this.estimatedFee / 100000000,
       true,
       false
     );
-
-    let transactionData;
+    console.log(this.transaction);
 
     this.apiService
       .buildTransaction(this.transaction)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400){
-            console.log(response);
+          if (response.status >= 200 && response.status < 400) {
             this.responseMessage = response.json();
           }
         },
@@ -235,7 +237,7 @@ export class SendComponent implements OnInit {
           }
         }
       )
-    ;
+      ;
   };
 
   public send() {
@@ -249,7 +251,7 @@ export class SendComponent implements OnInit {
       .sendTransaction(transaction)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400){
+          if (response.status >= 200 && response.status < 400) {
             this.activeModal.close("Close clicked");
           }
         },
@@ -269,20 +271,20 @@ export class SendComponent implements OnInit {
             }
           }
         },
-        ()=>this.openConfirmationModal()
+        () => this.openConfirmationModal()
       )
-    ;
+      ;
   }
 
   private getWalletBalance() {
     let walletInfo = new WalletInfo(this.globalService.getWalletName());
     this.walletBalanceSubscription = this.apiService.getWalletBalance(walletInfo)
       .subscribe(
-        response =>  {
+        response => {
           if (response.status >= 200 && response.status < 400) {
-              let balanceResponse = response.json();
-              //TO DO - add account feature instead of using first entry in array
-              this.totalBalance = balanceResponse.balances[0].amountConfirmed + balanceResponse.balances[0].amountUnconfirmed;
+            let balanceResponse = response.json();
+            //TO DO - add account feature instead of using first entry in array
+            this.totalBalance = balanceResponse.balances[0].amountConfirmed + balanceResponse.balances[0].amountUnconfirmed;
           }
         },
         error => {
@@ -305,7 +307,7 @@ export class SendComponent implements OnInit {
           }
         }
       )
-    ;
+      ;
   };
 
   private openConfirmationModal() {

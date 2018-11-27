@@ -11,7 +11,7 @@ export class WalletRecovery {
 
   mnemonic: string;
   password: string;
-  passphrase: string; 
+  passphrase: string;
   name: string;
   creationDate: Date;
   folderPath?: string;
