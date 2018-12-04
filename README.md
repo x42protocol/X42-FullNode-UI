@@ -6,7 +6,7 @@ This is the repository of the x42 Core Wallet, a full node staking wallet using 
 # Building and running the x42 Core daemon
 
 The x42 Core daemon is the backend REST service, hosting a x42 node upon which FullNode UI depends.  
-The x42 Core daemon is hosted in another repository. All information on building and running the daemon can be found [here](https://github.com/x42project/x42BitcoinFullNode/blob/master/Documentation/getting-started.md).
+The x42 Core daemon is hosted in another repository. All information on building and running the daemon can be found [here](https://github.com/x42protocol/X42-FullNode/blob/master/Documentation/getting-started.md).
 
 # Building and running the x42 Core user interface
 
