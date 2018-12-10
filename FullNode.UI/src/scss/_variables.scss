@@ -9,18 +9,17 @@
 //
 
 // stylelint-disable
-$white:    #e2e8ec !default;
+$white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
-$gray-600: #868e96 !default;
+$gray-600: #98A3B3 !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $black:    #354052 !default;
-$darkbg:   #0f1112 !default;
 
 $grays: () !default;
 $grays: map-merge((
@@ -35,10 +34,10 @@ $grays: map-merge((
   "900": $gray-900
 ), $grays);
 
-$blue:    #4b79ae !default;
+$blue:    #158BCF !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
-$pink:    #c05e7f !default;
+$pink:    #e83e8c !default;
 $red:     #dc3545 !default;
 $orange:  #fd7e14 !default;
 $yellow:  #ffc107 !default;
@@ -46,6 +45,8 @@ $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 $turquoise: #1FB8C1 !default;
+$hot:     #F5A623 !default;
+$cold:    #4A90E2 !default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -61,7 +62,9 @@ $colors: map-merge((
   "cyan":       $cyan,
   "white":      $white,
   "gray":       $gray-600,
-  "gray-dark":  $gray-800
+  "gray-dark":  $gray-800,
+  "hot":        $hot,
+  "cold":       $cold
 ), $colors);
 
 $primary:       $blue !default;
@@ -72,6 +75,7 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-500 !default;
 $dark:          $gray-800 !default;
+$purple:        $purple !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge((
@@ -82,7 +86,11 @@ $theme-colors: map-merge((
   "warning":    $warning,
   "danger":     $danger,
   "light":      $light,
-  "dark":       $dark
+  "dark":       $dark,
+  "hot":        $hot,
+  "cold":       $cold,
+  "lighter":    $gray-100,
+  "purple":    $purple
 ), $theme-colors);
 // stylelint-enable
 
@@ -490,8 +498,8 @@ $dropdown-border-width:             $border-width !default;
 $dropdown-divider-bg:               $gray-200 !default;
 $dropdown-box-shadow:               0 .5rem 1rem rgba($black,.175) !default;
 
-$dropdown-link-color:               $gray-900 !default;
-$dropdown-link-hover-color:         darken($gray-900, 5%) !default;
+$dropdown-link-color:               $gray-600 !default;
+$dropdown-link-hover-color:         $primary !default;
 $dropdown-link-hover-bg:            $gray-100 !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
@@ -528,7 +536,7 @@ $nav-tabs-border-color:             #ddd !default;
 $nav-tabs-border-width:             $border-width !default;
 $nav-tabs-border-radius:            $border-radius !default;
 $nav-tabs-link-hover-border-color:  $gray-200 !default;
-$nav-tabs-link-active-color:        $gray-700 !default;
+$nav-tabs-link-active-color:        $link-color !default;
 $nav-tabs-link-active-bg:           $body-bg !default;
 $nav-tabs-link-active-border-color: #ddd !default;
 
@@ -778,7 +786,7 @@ $breadcrumb-padding-y:              .75rem !default;
 $breadcrumb-padding-x:              1rem !default;
 $breadcrumb-item-padding:           .5rem !default;
 
-$breadcrumb-margin-bottom:          1rem !default;
+$breadcrumb-margin-bottom:          0 !default;
 
 $breadcrumb-bg:                     transparent !default;
 $breadcrumb-divider-color:          $gray-600 !default;

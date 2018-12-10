@@ -24,6 +24,7 @@ export class SendConfirmationComponent implements OnInit {
     this.coinUnit = this.globalService.getCoinUnit();
     this.transactionFee = new CoinNotationPipe(this.globalService).transform(this.transactionFee);
     this.transaction.amount = +this.transaction.recipients[0].amount + +this.transactionFee;
+    this.transaction.destinationAddress = this.transaction.recipients[0].destinationAddress;
   }
 
   toggleDetails() {
