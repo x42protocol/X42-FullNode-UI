@@ -85,7 +85,8 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         response =>  {
           if (response.status >= 200 && response.status < 400) {
-              let balanceResponse = response.json();
+            let balanceResponse = response.json();
+            console.log(balanceResponse);
               //TO DO - add account feature instead of using first entry in array
               this.confirmedBalance = balanceResponse.balances[0].amountConfirmed;
               this.unconfirmedBalance = balanceResponse.balances[0].amountUnconfirmed;

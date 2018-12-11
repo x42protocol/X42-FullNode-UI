@@ -59,8 +59,8 @@ import { LogoutConfirmationComponent } from './wallet/logout-confirmation/logout
     TransactionDetailsComponent,
     LogoutConfirmationComponent
   ],
-  providers: [ApiService, GlobalService, ModalService, Title, FeaturesService],
-  bootstrap: [AppComponent]
+  providers: [ ApiService, GlobalService, ModalService, Title, FeaturesService ],
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

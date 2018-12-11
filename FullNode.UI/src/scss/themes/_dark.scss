@@ -1,7 +1,7 @@
 //
 //
 //  Dark theme for GUI Wallet
-//  #TeamX42
+//  #TeamStratis
 //
 //
 
@@ -35,7 +35,7 @@ $white: rgba($white,.85);
       border: $card-border-width solid rgba(255,255,255,.1);
       border-radius: 0 !important;
       &:hover {
-        border: $card-border-width solid #4b79ae;
+        border: $card-border-width solid #158BCF;
         box-shadow: 0 5px 40px rgba(0,0,0,.25);
         background-color: #3A4147;
       }

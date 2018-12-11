@@ -14,7 +14,7 @@ import { WalletInfo } from '../../shared/classes/wallet-info';
   templateUrl: './status-bar.component.html',
   styleUrls: ['./status-bar.component.css']
 })
-export class StatusBarComponent implements OnInit {
+export class StatusBarComponent implements OnInit, OnDestroy {
 
   private generalWalletInfoSubscription: Subscription;
   private stakingInfoSubscription: Subscription;
@@ -24,8 +24,9 @@ export class StatusBarComponent implements OnInit {
   public connectedNodes: number = 0;
   private percentSyncedNumber: number = 0;
   public percentSynced: string;
-  public syncedProgress: string;
   public stakingEnabled: boolean;
+  toolTip = '';
+  connectedNodesTooltip = '';
 
   constructor(private apiService: ApiService, private globalService: GlobalService, private genericModalService: ModalService) { }
 
@@ -41,7 +42,7 @@ export class StatusBarComponent implements OnInit {
     let walletInfo = new WalletInfo(this.globalService.getWalletName())
     this.generalWalletInfoSubscription = this.apiService.getGeneralInfo(walletInfo)
       .subscribe(
-        response => {
+        response =>  {
           if (response.status >= 200 && response.status < 400) {
             let generalWalletInfoResponse = response.json();
             this.lastBlockSyncedHeight = generalWalletInfoResponse.lastBlockSyncedHeight;
@@ -49,20 +50,29 @@ export class StatusBarComponent implements OnInit {
             this.isChainSynced = generalWalletInfoResponse.isChainSynced;
             this.connectedNodes = generalWalletInfoResponse.connectedNodes;
 
-            this.syncedProgress = this.lastBlockSyncedHeight + " blocks out of " + this.chainTip + " synced.";
-            console.log(generalWalletInfoResponse);
-            if (this.connectedNodes > 0) {
+            const processedText = `Processed ${this.lastBlockSyncedHeight} out of ${this.chainTip} blocks.`;
+            this.toolTip = `Synchronizing.  ${processedText}`;
+
+            if (this.connectedNodes == 1) {
+                this.connectedNodesTooltip = "1 connection";
+            } else if (this.connectedNodes >= 0) {
+                this.connectedNodesTooltip = `${this.connectedNodes} connections`;
+            }
+
+            if(!this.isChainSynced) {
+              this.percentSynced = "syncing...";
+            }
+            else {
               this.percentSyncedNumber = ((this.lastBlockSyncedHeight / this.chainTip) * 100);
               if (this.percentSyncedNumber.toFixed(0) === "100" && this.lastBlockSyncedHeight != this.chainTip) {
                 this.percentSyncedNumber = 99;
               }
-              if (this.percentSyncedNumber.toFixed(0) === "100") {
-                this.syncedProgress = this.lastBlockSyncedHeight + " blocks."
-              }
+
               this.percentSynced = this.percentSyncedNumber.toFixed(0) + '%';
-            }
-            else {
-              this.percentSynced = "Connecting...";
+
+              if (this.percentSynced === '100%') {
+                this.toolTip = `Up to date.  ${processedText}`;
+              }
             }
           }
         },
@@ -86,13 +96,13 @@ export class StatusBarComponent implements OnInit {
           }
         }
       )
-      ;
+    ;
   };
 
   private getStakingInfo() {
     this.apiService.getStakingInfo()
       .subscribe(
-        response => {
+        response =>  {
           if (response.status >= 200 && response.status < 400) {
             let stakingResponse = response.json()
             this.stakingEnabled = stakingResponse.enabled;
@@ -111,11 +121,11 @@ export class StatusBarComponent implements OnInit {
           }
         }
       )
-      ;
+    ;
   }
 
   private cancelSubscriptions() {
-    if (this.generalWalletInfoSubscription) {
+    if(this.generalWalletInfoSubscription) {
       this.generalWalletInfoSubscription.unsubscribe();
     }
 

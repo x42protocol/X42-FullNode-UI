@@ -11,12 +11,16 @@ import { WalletCreation } from '../../../shared/classes/wallet-creation';
 import { Subscription } from 'rxjs/Subscription';
 import { Subscribable } from 'rxjs/Observable';
 
+import { SecretWordIndexGenerator } from './secret-word-index-generator';
+
 @Component({
   selector: 'app-confirm-mnemonic',
   templateUrl: './confirm-mnemonic.component.html',
   styleUrls: ['./confirm-mnemonic.component.css']
 })
 export class ConfirmMnemonicComponent implements OnInit {
+
+  public secretWordIndexGenerator = new SecretWordIndexGenerator();
 
   constructor(private globalService: GlobalService, private apiService: ApiService, private genericModalService: ModalService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) {
     this.buildMnemonicForm();
@@ -33,7 +37,7 @@ export class ConfirmMnemonicComponent implements OnInit {
         params["name"],
         params["mnemonic"],
         params["password"],
-        params["password"]
+        params["passphrase"]
       )
     });
   }
@@ -125,17 +129,19 @@ export class ConfirmMnemonicComponent implements OnInit {
   }
 
   public onBackClicked() {
-    this.router.navigate(['/setup/create/show-mnemonic'], { queryParams : { name: this.newWallet.name, mnemonic: this.newWallet.mnemonic, password: this.newWallet.password }});
+    this.router.navigate(['/setup/create/show-mnemonic'], { queryParams : { name: this.newWallet.name, mnemonic: this.newWallet.mnemonic, password: this.newWallet.password, passphrase: this.newWallet.passphrase }});
   }
 
   private checkMnemonic(): boolean {
     let mnemonic = this.newWallet.mnemonic;
     let mnemonicArray = mnemonic.split(" ");
 
-    if (this.mnemonicForm.get("word1").value.trim() === mnemonicArray[3] && this.mnemonicForm.get("word2").value.trim() === mnemonicArray[7] && this.mnemonicForm.get("word3").value.trim() === mnemonicArray[11]) {
+    if (this.mnemonicForm.get('word1').value.trim() === mnemonicArray[this.secretWordIndexGenerator.index1] &&
+        this.mnemonicForm.get('word2').value.trim() === mnemonicArray[this.secretWordIndexGenerator.index2] &&
+        this.mnemonicForm.get('word3').value.trim() === mnemonicArray[this.secretWordIndexGenerator.index3]) {
       return true;
     } else {
-      this.matchError = "The secret words do not match."
+      this.matchError = 'The secret words do not match.'
       return false;
     }
   }
@@ -146,7 +152,7 @@ export class ConfirmMnemonicComponent implements OnInit {
       .subscribe(
         response => {
           if (response.status >= 200 && response.status < 400){
-            this.genericModalService.openModal("Wallet Created", "Your wallet has been created.<br>Keep your secret words and password safe!");
+            this.genericModalService.openModal("Wallet Created", "Your wallet has been created.<br>Keep your secret words, password and passphrase safe!");
             this.router.navigate(['']);
           }
         },

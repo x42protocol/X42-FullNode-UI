@@ -1,6 +1,6 @@
 export class WalletLoad {
 
-  constructor(name: string, password: string, folderPath: string = null) {
+  constructor(name: string, password: string, folderPath: string = null ) {
     this.name = name;
     this.password = password;
     this.folderPath = folderPath;

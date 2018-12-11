@@ -21,14 +21,14 @@ export class MenuComponent implements OnInit, OnDestroy {
 
         this.tabOptions = [
             { 'displayName': 'Dashboard', 'routerLink': '/wallet', 'isEnabled': true, 'featureName': '', icon: '' },
-            //{ 'displayName': 'Cold Staking', 'routerLink': '/wallet/staking', 'isEnabled': this.coldStakingEnabled, 'featureName': 'coldstakingfeature', icon: '' },
+            { 'displayName': 'Cold Staking', 'routerLink': '/wallet/staking', 'isEnabled': this.coldStakingEnabled, 'featureName': 'coldstakingfeature', icon: '' },
             { 'displayName': 'History', 'routerLink': '/wallet/history', 'isEnabled': true, 'featureName': '', icon: '' },
             //{ 'displayName': 'Smart Contracts', 'routerLink': '/wallet/smart-contracts', 'isEnabled': true, 'featureName': '', icon: '' }
         ];
 
         this.dropdownOptions = [
             { 'displayName': 'Advanced', 'routerLink': '/wallet/advanced', 'isEnabled': true, 'featureName': '', icon: 'lnr-cog'},
-            //{ 'displayName': 'Address Book', 'routerLink': '/wallet/address-book', 'isEnabled': true, 'featureName': '', icon: 'lnr-book' }
+            { 'displayName': 'Address Book', 'routerLink': '/wallet/address-book', 'isEnabled': true, 'featureName': '', icon: 'lnr-book' }
         ];
 
         this.walletName = this.globalService.getWalletName();
@@ -52,11 +52,15 @@ export class MenuComponent implements OnInit, OnDestroy {
         }
     }
 
+    goToDashboard() {
+      this.router.navigate(['/wallet']);
+    }
+
     ngOnInit() {
       if (this.globalService.getNetwork() === "x42Main") {
         this.coldStakingEnabled = false;
       } else {
-        this.coldStakingEnabled = false; // Disable it for everything.
+        this.coldStakingEnabled = true;
       }
     }
 

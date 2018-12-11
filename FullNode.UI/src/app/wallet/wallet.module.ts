@@ -8,6 +8,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { SharedModule } from '../shared/shared.module';
 import { WalletRoutingModule } from './wallet-routing.module';
+import { ColdStakingModule } from './cold-staking/cold-staking.module';
+import { SmartContractsModule } from './smart-contracts/smart-contracts.module';
 
 import { WalletComponent } from './wallet.component';
 import { MenuComponent } from './menu/menu.component';
@@ -32,6 +34,8 @@ import { ResyncComponent } from './advanced/components/resync/resync.component';
     NgxPaginationModule,
     ReactiveFormsModule,
     WalletRoutingModule,
+    ColdStakingModule,
+    SmartContractsModule,
     HttpClientModule,
   ],
   declarations: [

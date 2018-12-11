@@ -15,7 +15,6 @@ import { WalletCreation } from '../classes/wallet-creation';
 import { WalletRecovery } from '../classes/wallet-recovery';
 import { WalletLoad } from '../classes/wallet-load';
 import { WalletInfo } from '../classes/wallet-info';
-
 import { FeeEstimation } from '../classes/fee-estimation';
 import { TransactionBuilding } from '../classes/transaction-building';
 import { TransactionSending } from '../classes/transaction-sending';
@@ -23,8 +22,6 @@ import { TransactionSending } from '../classes/transaction-sending';
 /**
  * For information on the API specification have a look at our swagger files located at http://localhost:5000/swagger/ when running the daemon
  */
-
-
 @Injectable()
 export class ApiService {
 
@@ -340,7 +337,7 @@ export class ApiService {
    */
   shutdownNode(): Observable<any> {
     return this.http
-      .post(this.X42ApiUrl + '/node/shutdown', { headers: this.headers })
+      .post(this.X42ApiUrl + '/node/shutdown', 'corsProtection:true', { headers: this.headers })
       .map((response: Response) => response);
   }
 
