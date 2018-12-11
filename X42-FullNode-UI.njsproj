@@ -54,6 +54,7 @@
     <Content Include="FullNode.UI\src\app\wallet\smart-contracts\components\smart-contracts.component.css" />
     <Content Include="FullNode.UI\src\app\wallet\smart-contracts\components\smart-contracts.component.html" />
     <Content Include="FullNode.UI\src\assets\images\icon.icns" />
+    <Content Include="FullNode.UI\src\assets\images\logo-failed.png" />
     <Content Include="FullNode.UI\src\assets\images\logo.png" />
     <Content Include="FullNode.UI\src\scss\bootstrap-grid.scss" />
     <Content Include="FullNode.UI\src\scss\bootstrap-reboot.scss" />
