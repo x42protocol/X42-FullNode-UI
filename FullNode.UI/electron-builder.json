@@ -33,7 +33,7 @@
       "deb",
       "tar.gz"
     ],
-    "synopsis": "x42.UI: x42' staking wallet.",
+    "synopsis": "FullNode.UI: x42 staking wallet.",
     "category": "Utility",
     "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
   },

@@ -24,7 +24,7 @@
   "main": "main.js",
   "private": true,
   "scripts": {
-    "postinstall": "npx electron-builder install-app-deps",
+    "postinstall": "npm run postinstall:electron && electron-builder install-app-deps",
     "postinstall:web": "node postinstall-web",
     "postinstall:electron": "node postinstall",
     "ng": "ng",
@@ -97,7 +97,6 @@
     "ngx-electron": "2.0.0",
     "node-sass": "4.11.0",
     "npm-run-all": "4.1.5",
-    "npx": "10.2.0",
     "protractor": "5.4.2",
     "rxjs": "6.3.3",
     "ts-node": "7.0.1",
