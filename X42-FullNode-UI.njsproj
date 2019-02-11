@@ -168,7 +168,6 @@
     <TypeScriptCompile Include="FullNode.UI\src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\app\app.component.ts" />
-    <TypeScriptCompile Include="FullNode.UI\src\app\app.config.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\app\app.module.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\environments\environment.dev.ts" />
     <TypeScriptCompile Include="FullNode.UI\src\environments\environment.local.ts" />

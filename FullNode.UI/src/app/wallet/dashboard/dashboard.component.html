@@ -9,7 +9,7 @@
               <h5>Spendable balance</h5>
               <p class="lead">
                 <strong>{{ (confirmedBalance | coinNotation) || (0 | coinNotation) }}</strong>
-                <span class="small"> {{ coinUnit }}</span>
+                <small class="text-uppercase"> {{ coinUnit }}</small>
               </p>
               <ul class="list-unstyled">
                 <li><strong>{{ (unconfirmedBalance | coinNotation) || (0 | coinNotation) }}</strong><em> (unconfirmed)</em></li>
@@ -116,7 +116,7 @@
               </div>
             </div>
           </div> -->
-          <section class="col-4" *ngIf="hasBalance">
+          <section class="col-4" *ngIf="hasBalance && !sidechainEnabled">
             <div class="card" *ngIf="!stakingEnabled">
               <div class="card-header">Staking</div>
               <div class="card-body">
@@ -143,10 +143,13 @@
               <div class="card-body">
                 <ul class="list-unstyled mb-3">
                   <li *ngIf="isStarting">Waiting for staking to start...</li>
-                  <li>Your weight is <strong>{{ stakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</strong></li>
-                  <li>Network weight is <strong>{{ netStakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</strong></li>
-                  <li class="mt-2">Estimated reward time is:</li>
-                  <li><strong>{{ dateTime }}</strong></li>
+                  <div *ngIf="!isStarting">
+                    <li>Staking weight: <strong>{{ stakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</strong></li>
+                    <li>Coins awaiting maturity: <strong>{{ awaitingMaturity | coinNotation | number: '1.0-0' }} {{ coinUnit }}</strong></li>
+                    <li>Network weight: <strong>{{ netStakingWeight | coinNotation | number: '1.0-0' }} {{ coinUnit }}</strong></li>
+                    <li class="mt-2">Expected reward time is:</li>
+                    <li><strong>{{ dateTime }}</strong></li>
+                  </div>
                 </ul>
                 <button type="button" class="btn btn-outline-light mb-3" [disabled]="isStopping" (click)="stopStaking()">Stop Staking</button>
               </div>

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { GlobalService } from '../shared/services/global.service';
 import { ApiService } from '../shared/services/api.service';
 import { ModalService } from '../shared/services/modal.service';
 
-import { WalletLoad } from '../shared/classes/wallet-load';
-import { WalletInfo } from '../shared/classes/wallet-info';
+import { WalletLoad } from '../shared/models/wallet-load';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.getWalletFiles();
+    this.getCurrentNetwork();
   }
 
   private buildDecryptForm(): void {
@@ -70,30 +70,15 @@ export class LoginComponent implements OnInit {
     this.apiService.getWalletFiles()
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400) {
-            let responseMessage = response.json();
-            this.wallets = responseMessage.walletsFiles;
-            this.globalService.setWalletPath(responseMessage.walletsPath);
-            if (this.wallets.length > 0) {
-              this.hasWallet = true;
-              for (let wallet in this.wallets) {
-                this.wallets[wallet] = this.wallets[wallet].slice(0, -12);
-              }
-            } else {
-              this.hasWallet = false;
+          this.wallets = response.walletsFiles;
+          this.globalService.setWalletPath(response.walletsPath);
+          if (this.wallets.length > 0) {
+            this.hasWallet = true;
+            for (let wallet in this.wallets) {
+              this.wallets[wallet] = this.wallets[wallet].slice(0, -12);
             }
-          }
-        },
-        error => {
-          if (error.status === 0) {
-            this.genericModalService.openModal(null, null);
-          } else if (error.status >= 400) {
-            if (!error.json().errors[0]) {
-              console.log(error);
-            }
-            else {
-              this.genericModalService.openModal(null, error.json().errors[0].message);
-            }
+          } else {
+            this.hasWallet = false;
           }
         }
       )
@@ -101,7 +86,7 @@ export class LoginComponent implements OnInit {
   }
 
   public onCreateClicked() {
-    this.router.navigate(['/setup']);
+    this.router.navigate(['setup']);
   }
 
   public onEnter() {
@@ -113,9 +98,6 @@ export class LoginComponent implements OnInit {
   public onDecryptClicked() {
     this.isDecrypting = true;
     this.globalService.setWalletName(this.openWalletForm.get("selectWallet").value);
-    this.globalService.setCoinName("x42");
-    this.globalService.setCoinUnit("x42");
-    this.getCurrentNetwork();
     let walletLoad = new WalletLoad(
       this.openWalletForm.get("selectWallet").value,
       this.openWalletForm.get("password").value
@@ -124,59 +106,25 @@ export class LoginComponent implements OnInit {
   }
 
   private loadWallet(walletLoad: WalletLoad) {
-    this.apiService.loadX42Wallet(walletLoad)
+    this.apiService.loadStratisWallet(walletLoad)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400) {
-            // Navigate to the wallet section
-            this.router.navigate(['/wallet']);
-          }
+          this.router.navigate(['wallet/dashboard']);
         },
         error => {
           this.isDecrypting = false;
-          if (error.status === 0) {
-            this.genericModalService.openModal(null, null);
-          } else if (error.status >= 400) {
-            if (!error.json().errors[0]) {
-              console.log(error);
-            }
-            else {
-              this.genericModalService.openModal(null, error.json().errors[0].message);
-            }
-          }
         }
       )
     ;
   }
 
   private getCurrentNetwork() {
-    let walletInfo = new WalletInfo(this.globalService.getWalletName())
-    this.apiService.getGeneralInfoOnce(walletInfo)
+    this.apiService.getNodeStatus()
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400) {
-            let responseMessage = response.json();
-            this.globalService.setNetwork(responseMessage.network);
-            if (responseMessage.network === "x42Main") {
-              this.globalService.setCoinName("x42");
-              this.globalService.setCoinUnit("x42");
-            } else if (responseMessage.network === "x42Test") {
-              this.globalService.setCoinName("Testx42");
-              this.globalService.setCoinUnit("Tx42");
-            }
-          }
-        },
-        error => {
-          if (error.status === 0) {
-            this.genericModalService.openModal(null, null);
-          } else if (error.status >= 400) {
-            if (!error.json().errors[0]) {
-              console.log(error);
-            }
-            else {
-              this.genericModalService.openModal(null, error.json().errors[0].message);
-            }
-          }
+          let responseMessage = response;
+          this.globalService.setCoinUnit(responseMessage.coinTicker);
+          this.globalService.setNetwork(responseMessage.network);
         }
       )
     ;

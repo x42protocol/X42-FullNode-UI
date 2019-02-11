@@ -1,30 +1,43 @@
-import { app, BrowserWindow, ipcMain, Menu, nativeImage, screen, Tray } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, nativeImage, Tray, net } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as os from 'os';
+if (os.arch() == 'arm') {
+  app.disableHardwareAcceleration();
+}
 
 let serve;
 let testnet;
+let sidechain;
+let nodaemon;
 const args = process.argv.slice(1);
 serve = args.some(val => val === "--serve" || val === "-serve");
-testnet = false; // TODO: Add testnet. args.some(function (val) { return val === "--testnet" || val === "-testnet"; });
+testnet = args.some(val => val === "--testnet" || val === "-testnet");
+sidechain = args.some(val => val === "--sidechain" || val === "-sidechain");
+nodaemon = args.some(val => val === "--nodaemon" || val === "-nodaemon");
 
 let apiPort;
-if (testnet) {
+if (testnet && !sidechain) {
+  apiPort = 42221;
+} else if (!testnet && !sidechain) {
   apiPort = 42220;
-} else {
-  apiPort = 42220;
+} else if (sidechain && testnet) {
+  apiPort = 42221;
+} else if (sidechain && !testnet) {
+  apiPort = 42221;
 }
 
 ipcMain.on('get-port', (event, arg) => {
   event.returnValue = apiPort;
 });
 
-try {
-  require('dotenv').config();
-} catch {
-  console.log('asar');
-}
+ipcMain.on('get-testnet', (event, arg) => {
+  event.returnValue = testnet;
+});
+
+ipcMain.on('get-sidechain', (event, arg) => {
+  event.returnValue = sidechain;
+});
 
 require('electron-context-menu')({
   showInspectElement: serve
@@ -62,9 +75,8 @@ function createWindow() {
   }
 
   // Emitted when the window is going to close.
-  mainWindow.on('close', function (e) {
-    closeX42Api();
-  });
+  mainWindow.on('close', () => {
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
@@ -81,20 +93,26 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   if (serve) {
-    console.log("x42 UI was started in development mode. This requires the user to be running the x42 Full Node Daemon.")
+    console.log("x42 UI was started in development mode. This requires the user to be running the x42 Full Node Daemon themself.")
   }
   else {
-    startX42Api();
+    if (sidechain && !nodaemon) {
+      startDaemon("x42.x42D");
+    } else if (!nodaemon) {
+      startDaemon("x42.x42D")
+    }
   }
   createTray();
   createWindow();
-  if (os.platform() === 'darwin') {
+  if (os.platform() === 'darwin'){
     createMenu();
   }
 });
 
-app.on('before-quit', () => {
-  closeX42Api();
+app.on('quit', () => {
+  if (!serve && !nodaemon) {
+    shutdownDaemon(this.portNumber);
+  }
 });
 
 // Quit when all windows are closed.
@@ -114,53 +132,43 @@ app.on('activate', () => {
   }
 });
 
-function closeX42Api() {
-  var http = require('http');
-  var body = JSON.stringify({});
-
-  var request = new http.ClientRequest({
-    hostname: "localhost",
-    port: 42220,
-    path: "/api/node/shutdown",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Content-Length": Buffer.byteLength(body)
-    }
+function shutdownDaemon(portNumber) {
+  const request = net.request({
+    method: 'POST',
+    hostname: 'localhost',
+    port: portNumber,
+    path: '/api/node/shutdown',
   })
 
-  request.on('error', function (e) { });
-  request.on('timeout', function (e) { request.abort(); });
-  request.on('uncaughtException', function (e) { request.abort(); });
-
-  request.end(body);
+  request.setHeader("content-type", "application/json-patch+json");
+  request.write('true');
+  request.end();
 };
 
-function startX42Api() {
-  var X42Process;
-  const spawnX42 = require('child_process').spawn;
+function startDaemon(daemonName) {
+  var daemonProcess;
+  var spawnDaemon = require('child_process').spawn;
 
-  //Start X42 Daemon
-  let apiPath = path.resolve(__dirname, 'assets//daemon//x42.x42D');
+  var daemonPath;
   if (os.platform() === 'win32') {
-    apiPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\x42.x42D.exe');
-  } else if (os.platform() === 'linux') {
-    apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
+    daemonPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\' + daemonName + '.exe');
+  } else if(os.platform() === 'linux') {
+	  daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
   } else {
-    apiPath = path.resolve(__dirname, '..//..//resources//daemon//x42.x42D');
+	  daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
   }
 
   if (!testnet) {
-    X42Process = spawnX42(apiPath, {
+    daemonProcess = spawnDaemon(daemonPath, {
       detached: true
     });
   } else if (testnet) {
-    X42Process = spawnX42(apiPath, ['-testnet'], {
+    daemonProcess = spawnDaemon(daemonPath, ['-testnet'], {
       detached: true
     });
   }
 
-  X42Process.stdout.on('data', (data) => {
+  daemonProcess.stdout.on('data', (data) => {
     writeLog(`x42: ${data}`);
   });
 }
@@ -178,20 +186,20 @@ function createTray() {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Hide/Show',
-      click: function () {
+      click: function() {
         mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
       }
     },
     {
       label: 'Exit',
-      click: function () {
+      click: function() {
         app.quit();
       }
     }
   ]);
   systemTray.setToolTip('x42 Core');
   systemTray.setContextMenu(contextMenu);
-  systemTray.on('click', function () {
+  systemTray.on('click', function() {
     if (!mainWindow.isVisible()) {
       mainWindow.show();
     }
@@ -215,9 +223,8 @@ function createMenu() {
     label: app.getName(),
     submenu: [
       { label: "About " + app.getName(), selector: "orderFrontStandardAboutPanel:" },
-      { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } }
-    ]
-  }, {
+      { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+    ]}, {
     label: "Edit",
     submenu: [
       { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
@@ -226,8 +233,7 @@ function createMenu() {
       { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
       { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
       { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-    ]
-  }
+    ]}
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));

@@ -11,28 +11,28 @@
         </div>
         <div class="form-group col-12">
           <label class="text-left" for="walletName">Name</label>
-          <input type="text" class="form-control form-control-success" [class.is-invalid]="formErrors.walletName" [class.is-valid]="!formErrors.walletName && recoverWalletForm.get('walletName').valid" formControlName="walletName" id="walletName" placeholder="Enter a wallet name.">
+          <input type="text" class="form-control form-control-success" [class.is-invalid]="formErrors.walletName" [class.is-valid]="!formErrors.walletName && recoverWalletForm.get('walletName').valid" formControlName="walletName" placeholder="Enter a wallet name.">
           <div *ngIf="formErrors.walletName" class="invalid-feedback">{{ formErrors.walletName }}</div>
         </div>
         <div class="form-group col-12">
           <label class="text-left" for="creationDate">Earliest Possible Creation Date</label>
-          <input type="text" class="form-control" bsDatepicker formControlName="walletDate" placeholder="Select the date your wallet was created." [bsConfig]="bsConfig" [maxDate]="maxDate"/>
+          <input type="text" class="form-control" bsDatepicker formControlName="walletDate" placeholder="mm/dd/yyy" [bsConfig]="bsConfig" [minDate]="minDate" [maxDate]="maxDate"/>
           <div *ngIf="formErrors.walletDate" class="text-danger mt-2">{{ formErrors.walletDate }}</div>
         </div>
         <div class="form-group col-12">
           <label class="text-left" for="walletMnemonic">Secret Words</label>
-          <input type="text" class="form-control form-control-success" [class.is-invalid]="formErrors.walletMnemonic" [class.is-valid]="!formErrors.walletMnemonic && recoverWalletForm.get('walletMnemonic').valid" formControlName="walletMnemonic" id="walletName" placeholder="Enter your secret words.">
+          <input type="text" class="form-control form-control-success" [class.is-invalid]="formErrors.walletMnemonic" [class.is-valid]="!formErrors.walletMnemonic && recoverWalletForm.get('walletMnemonic').valid" formControlName="walletMnemonic" placeholder="Enter your secret words.">
           <div *ngIf="formErrors.walletMnemonic" class="invalid-feedback">{{ formErrors.walletMnemonic }}</div>
         </div>
         <div class="form-group col-12">
           <label for="walletPassword">Password</label>
-          <input type="password" class="form-control form-control-success" [class.is-invalid]="formErrors.walletPassword" [class.is-valid]="!formErrors.walletPassword && recoverWalletForm.get('walletPassword').valid" formControlName="walletPassword" id="walletPassword" placeholder="Enter a password.">
+          <input type="password" class="form-control form-control-success" [class.is-invalid]="formErrors.walletPassword" [class.is-valid]="!formErrors.walletPassword && recoverWalletForm.get('walletPassword').valid" formControlName="walletPassword" placeholder="Enter a password.">
           <div *ngIf="formErrors.walletPassword" class="invalid-feedback">{{ formErrors.walletPassword }}</div>
         </div>
         <div class="form-group col-12">
           <label for="walletPassphrase mr-auto">Recovery phrase</label><em class="text-muted ml-auto float-right">(optional)</em>
           <!--[class.is-invalid]="formErrors.walletPassphrase" [class.is-valid]="!formErrors.walletPassphrase && createWalletForm.get('walletPassphrase').valid"-->
-          <input type="text" class="form-control form-control-success" formControlName="walletPassphrase" id="walletPassphrase" placeholder="Enter an optional recovery phrase.">
+          <input type="text" class="form-control form-control-success" formControlName="walletPassphrase" placeholder="Enter an optional recovery phrase.">
           <div *ngIf="formErrors.walletPassphrase" class="invalid-feedback">{{ formErrors.walletPassphrase }}</div>
         </div>
         <div class="modal-footer col-12">
@@ -74,7 +74,7 @@
 
 
                 </g>
-                </svg>
+              </svg>
             </div>
             <!-- /SVG -->
         </div>

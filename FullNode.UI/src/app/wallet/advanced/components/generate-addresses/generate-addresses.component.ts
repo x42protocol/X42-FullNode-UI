@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ApiService } from '../../../../shared/services/api.service';
 import { GlobalService } from '../../../../shared/services/global.service';
 import { ModalService } from '../../../../shared/services/modal.service';
-import { WalletInfo } from '../../../../shared/classes/wallet-info';
+import { WalletInfo } from '../../../../shared/models/wallet-info';
 
 @Component({
   selector: 'app-generate-addresses',
@@ -12,20 +12,20 @@ import { WalletInfo } from '../../../../shared/classes/wallet-info';
   styleUrls: ['./generate-addresses.component.css']
 })
 export class GenerateAddressesComponent implements OnInit {
-
   constructor(private apiService: ApiService, private globalService: GlobalService, private genericModalService: ModalService, private fb: FormBuilder) {
     this.buildGenerateAddressesForm();
   }
 
   public generateAddressesForm: FormGroup;
   public addresses: string[];
+  public pageNumber: number = 1;
 
   ngOnInit() {
   }
 
   private buildGenerateAddressesForm() {
     this.generateAddressesForm= this.fb.group({
-      "generateAddresses": ["", Validators.compose([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(10)])]
+      "generateAddresses": ["", Validators.compose([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1), Validators.max(1000)])]
     });
 
     this.generateAddressesForm.valueChanges
@@ -58,7 +58,7 @@ export class GenerateAddressesComponent implements OnInit {
       'required': 'Please enter an amount to generate.',
       'pattern': 'Please enter a number between 1 and 10.',
       'min': 'Please generate at least one address.',
-      'max': 'You can only generate 10 addresses at once.'
+      'max': 'You can only generate 1000 addresses at once.'
     }
   };
 
@@ -67,25 +67,9 @@ export class GenerateAddressesComponent implements OnInit {
     this.apiService.getUnusedReceiveAddresses(walletInfo, this.generateAddressesForm.get("generateAddresses").value)
       .subscribe(
         response => {
-          if (response.status >= 200 && response.status < 400) {
-            this.addresses = response.json();
-          }
-        },
-        error => {
-          console.log(error);
-          if (error.status === 0) {
-            this.genericModalService.openModal(null, null);
-          } else if (error.status >= 400) {
-            if (!error.json().errors[0]) {
-              console.log(error);
-            }
-            else {
-              this.genericModalService.openModal(null, error.json().errors[0].message);
-            }
-          }
+          this.addresses = response;
         }
-      )
-    ;
+      );
   }
 
   public onBackClicked() {

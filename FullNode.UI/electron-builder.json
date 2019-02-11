@@ -1,16 +1,31 @@
 {
-  "appId": "com.x42platform.core",
+  "appId": "tech.x42.core",
   "productName": "x42 Core",
   "publish": null,
   "directories": {
     "output": "app-builds"
   },
+  "files": [
+    "**/*",
+    "!**/*.ts",
+    "!*.code-workspace",
+    "!LICENSE.md",
+    "!package.json",
+    "!package-lock.json",
+    "!src/",
+    "!e2e/",
+    "!angular.json",
+    "!_config.yml",
+    "!karma.conf.js",
+    "!tsconfig.json",
+    "!tslint.json"
+  ],
   "win": {
     "icon": "dist/assets/images/icon",
     "target": [
       "nsis"
     ],
-    "artifactName": "${productName}-v${version}-setup-${os}-${env.arch}.${ext}"
+    "artifactName": "${productName}-v${version}-setup-${os}-${arch}.${ext}"
   },
   "linux": {
     "icon": "dist/assets/images/",
@@ -18,7 +33,7 @@
       "deb",
       "tar.gz"
     ],
-    "synopsis": "FullNode.UI: x42' staking wallet.",
+    "synopsis": "x42.UI: x42' staking wallet.",
     "category": "Utility",
     "artifactName": "${productName}-v${version}-${os}-${arch}.${ext}"
   },
@@ -35,7 +50,7 @@
     "perMachine": true,
     "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": true,
-    "guid": "56cbbab3-415f-42b7-b43a-7e3a9036cd36",
+    "guid": "d7a4e2c1-555f-4059-8dcf-88fda8e9f89c",
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
     "license": "src/assets/images/license_en.txt"
