@@ -152,7 +152,7 @@ export class ConfirmMnemonicComponent implements OnInit {
       .subscribe(
         response => {
           if (response.status >= 200 && response.status < 400){
-            this.genericModalService.openModal("Wallet Created", "Your wallet has been created.<br>Keep your secret words, password and passphrase safe!");
+            this.genericModalService.openModal("Wallet Created", "Your wallet has been created.<br>Keep your secret words, password and recovery phrase safe!");
             this.router.navigate(['']);
           }
         },

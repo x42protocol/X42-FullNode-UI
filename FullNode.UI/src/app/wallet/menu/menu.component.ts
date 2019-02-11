@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
         this.tabOptions = [
             { 'displayName': 'Dashboard', 'routerLink': '/wallet', 'isEnabled': true, 'featureName': '', icon: '' },
-            { 'displayName': 'Cold Staking', 'routerLink': '/wallet/staking', 'isEnabled': this.coldStakingEnabled, 'featureName': 'coldstakingfeature', icon: '' },
+            //{ 'displayName': 'Cold Staking', 'routerLink': '/wallet/staking', 'isEnabled': this.coldStakingEnabled, 'featureName': 'coldstakingfeature', icon: '' },
             { 'displayName': 'History', 'routerLink': '/wallet/history', 'isEnabled': true, 'featureName': '', icon: '' },
             //{ 'displayName': 'Smart Contracts', 'routerLink': '/wallet/smart-contracts', 'isEnabled': true, 'featureName': '', icon: '' }
         ];

@@ -28,14 +28,14 @@
         </div>
         <!-- /form-group -->
         <div class="form-group col-12">
-          <label for="walletPassphrase mr-auto">Passphrase</label><em class="text-muted ml-auto float-right">(optional)</em>
+          <label for="walletPassphrase mr-auto">Recovery phrase</label><em class="text-muted ml-auto float-right">(optional)</em>
           <!--[class.is-invalid]="formErrors.walletPassphrase" [class.is-valid]="!formErrors.walletPassphrase && createWalletForm.get('walletPassphrase').valid"-->
-          <input type="password" class="form-control form-control-success" formControlName="walletPassphrase" id="walletPassphrase" placeholder="Enter an optional passphrase." placement="right" ngbTooltip="The passphrase will be combined with your secret words to generate the private seed and will be required to restore your wallet in the future if necessary." triggers="click:blur">
+          <input type="text" class="form-control form-control-success" formControlName="walletPassphrase" id="walletPassphrase" placeholder="Enter an optional recovery phrase." placement="right" ngbTooltip="The recovery phrase will be combined with your secret words to generate the private seed and will be required to restore your wallet in the future if necessary." triggers="click:blur">
           <div *ngIf="formErrors.walletPassphrase" class="invalid-feedback">{{ formErrors.walletPassphrase }}</div>
         </div>
         <div class="col-12">
           <div class="alert alert-danger text-center" role="alert">
-            Your passphrase will be required to recover your wallet in the future. <br><strong>Keep it safe if you choose to have one</strong>.
+            Your recovery phrase will be required to recover your wallet in the future. <br><strong>Keep it safe if you choose to have one</strong>.
           </div>
         </div>
         <div class="modal-footer col-12">
