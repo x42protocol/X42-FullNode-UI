@@ -99,15 +99,12 @@
     <Content Include="README.md" />
     <Content Include="FullNode.Documentation\API contribution guidelines.md" />
     <Content Include="FullNode.Documentation\ApiSpecification.md" />
-    <Content Include="FullNode.UI\.angular-cli.json" />
     <Content Include="FullNode.UI\electron-builder.json" />
     <Content Include="FullNode.UI\package.json" />
     <Content Include="FullNode.UI\tsconfig.json" />
     <Content Include="FullNode.UI\tslint.json" />
     <TypeScriptCompile Include="FullNode.UI\main.ts" />
-    <Compile Include="FullNode.UI\karma.conf.js" />
     <Compile Include="FullNode.UI\postcss.config.js" />
-    <Compile Include="FullNode.UI\protractor.conf.js" />
     <Content Include="FullNode.UI\e2e\tsconfig.e2e.json" />
     <TypeScriptCompile Include="FullNode.UI\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="FullNode.UI\e2e\app.po.ts" />
