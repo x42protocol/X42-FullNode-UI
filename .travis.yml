@@ -1,7 +1,6 @@
 language: csharp
 mono: none
 dotnet: 2.1.301
-node_js: "10"
 
 matrix:
   include:
@@ -48,6 +47,9 @@ cache:
 # Work around NuGet issue #2163
 # https://github.com/NuGet/Home/issues/2163
 # https://github.com/travis-ci/travis-ci/issues/7728
+
+install:
+- nvm install 10; nvm use 10
 
 before_script:
 - if [ -z "$TRAVIS_TAG" ] ; then TRAVIS_TAG=cd-unstable; fi
