@@ -50,7 +50,7 @@ cache:
 # https://github.com/travis-ci/travis-ci/issues/7728
 
 install:
-- nvm install 8
+- npm install
 
 before_script:
 - if [ -z "$TRAVIS_TAG" ] ; then TRAVIS_TAG=cd-unstable; fi
