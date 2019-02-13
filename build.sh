@@ -27,7 +27,7 @@ git submodule update --init --recursive
 
 cd $TRAVIS_BUILD_DIR/FullNode.UI
 
-npm install
+npm install --verbose
 npm install -g npx
 echo $log_prefix FINISHED restoring dotnet and npm packages
 
