@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.2.104
+dotnet: 2.1.301
 
 matrix:
   include:
@@ -12,8 +12,8 @@ matrix:
     dist: trusty
     sudo: required
     env: OS=arm arch=arm
-  - os: osx # OSX 10.13
-    osx_image: xcode10
+  - os: osx # OSX 10.12
+    osx_image: xcode9
     env: OS=osx arch=x64
     before_install:
     - brew update
@@ -21,7 +21,7 @@ matrix:
     - chmod +x dotnet-install.sh
     - ./dotnet-install.sh --channel 2.0
     - export PATH=$PATH:~/.dotnet/
-    - ulimit -n 1024
+    - ulimit -n 20000
     - os_platform=darwin
 
 # branches to build 
@@ -32,7 +32,7 @@ branches:
 env:
   global:
   - log_prefix=[$TRAVIS_OS_NAME]
-  - configuration=Release  
+  - configuration=Release
   - os_platform=linux
   - CSC_IDENTITY_AUTO_DISCOVERY=false 
 
