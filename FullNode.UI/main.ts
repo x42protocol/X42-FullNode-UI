@@ -75,8 +75,9 @@ function createWindow() {
   }
 
   // Emitted when the window is going to close.
-  mainWindow.on('close', () => {
-  })
+  mainWindow.on('close', function (e) {
+    shutdownDaemon(apiPort);
+  });
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
