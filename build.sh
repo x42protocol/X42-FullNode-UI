@@ -27,8 +27,7 @@ git submodule update --init --recursive
 
 cd $TRAVIS_BUILD_DIR/FullNode.UI
 
-npm install --verbose
-npm install -g npx
+npm install
 echo $log_prefix FINISHED restoring dotnet and npm packages
 
 # dotnet publish
@@ -47,11 +46,11 @@ npm run build:prod
 # node packaging
 echo $log_prefix packaging FullNode.UI 
 if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-  npx electron-builder build --mac --$arch
+  npm run package:mac --$arch
 elif [[ ${OS} == "arm" ]]; then
-  npx electron-builder build --linux --armv7l
+  npm run package:linuxarm
 else
-  npx electron-builder build --linux --$arch
+  npm run package:linux
 fi
 
 echo $log_prefix finished packaging
