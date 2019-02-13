@@ -21,7 +21,7 @@ matrix:
     - chmod +x dotnet-install.sh
     - ./dotnet-install.sh --channel 2.0
     - export PATH=$PATH:~/.dotnet/
-    - ulimit -n 20000
+    - ulimit -n 1024
     - os_platform=darwin
 
 # branches to build 
@@ -49,7 +49,7 @@ cache:
 # https://github.com/travis-ci/travis-ci/issues/7728
 
 install:
-- nvm install 10; nvm use 10
+- nvm install 8.11.4; nvm use 8.11.4
 
 before_script:
 - if [ -z "$TRAVIS_TAG" ] ; then TRAVIS_TAG=cd-unstable; fi
