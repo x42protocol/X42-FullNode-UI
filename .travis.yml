@@ -1,6 +1,6 @@
 language: csharp
 mono: none
-dotnet: 2.1.301
+dotnet: 2.2.104
 
 matrix:
   include:
@@ -12,8 +12,8 @@ matrix:
     dist: trusty
     sudo: required
     env: OS=arm arch=arm
-  - os: osx # OSX 10.12
-    osx_image: xcode9
+  - os: osx # OSX 10.13
+    osx_image: xcode10
     env: OS=osx arch=x64
     before_install:
     - brew update
