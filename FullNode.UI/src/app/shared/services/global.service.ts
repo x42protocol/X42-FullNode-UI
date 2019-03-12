@@ -12,7 +12,7 @@ export class GlobalService {
     this.setApiPort();
   }
 
-  private applicationVersion: string = "1.0.0";
+  private applicationVersion: string = "0.1.16";
   private testnet: boolean = false;
   private sidechain: boolean = false;
   private mainApiPort: number = 37221;

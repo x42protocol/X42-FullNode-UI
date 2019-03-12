@@ -29,17 +29,17 @@ export class RecoverComponent implements OnInit {
   private walletRecovery: WalletRecovery;
 
   ngOnInit() {
-    this.bsConfig = Object.assign({}, {showWeekNumbers: false, containerClass: 'theme-blue'});
+    this.bsConfig = Object.assign({}, { showWeekNumbers: false, containerClass: 'theme-dark-blue' });
   }
 
   private buildRecoverForm(): void {
     this.recoverWalletForm = this.fb.group({
       "walletName": ["", [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(24),
-          Validators.pattern(/^[a-zA-Z0-9]*$/)
-        ]
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(24),
+        Validators.pattern(/^[a-zA-Z0-9]*$/)
+      ]
       ],
       "walletMnemonic": ["", Validators.required],
       "walletDate": ["", Validators.required],
@@ -101,7 +101,7 @@ export class RecoverComponent implements OnInit {
     this.router.navigate(["/setup"]);
   }
 
-  public onRecoverClicked(){
+  public onRecoverClicked() {
     this.isRecovering = true;
 
     let recoveryDate = new Date(this.recoverWalletForm.get("walletDate").value);

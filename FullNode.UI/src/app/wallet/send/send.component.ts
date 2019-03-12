@@ -41,6 +41,7 @@ export class SendComponent implements OnInit, OnDestroy {
   public estimatedFee: number = 0;
   public estimatedSidechainFee: number = 0;
   public totalBalance: number = 0;
+  public spendableBalance: number = 0;
   public apiError: string;
   public firstTitle: string;
   public secondTitle: string;
@@ -62,7 +63,7 @@ export class SendComponent implements OnInit, OnDestroy {
     this.startSubscriptions();
     this.coinUnit = this.globalService.getCoinUnit();
     if (this.address) {
-      this.sendForm.patchValue({'address': this.address})
+      this.sendForm.patchValue({ 'address': this.address })
     }
   }
 
@@ -73,7 +74,7 @@ export class SendComponent implements OnInit, OnDestroy {
   private buildSendForm(): void {
     this.sendForm = this.fb.group({
       "address": ["", Validators.compose([Validators.required, Validators.minLength(26)])],
-      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00001), (control: AbstractControl) => Validators.max((this.totalBalance - this.estimatedFee)/100000000)(control)])],
+      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00001), (control: AbstractControl) => Validators.max((this.spendableBalance - this.estimatedFee) / 100000000)(control)])],
       "fee": ["medium", Validators.required],
       "password": ["", Validators.required]
     });
@@ -86,7 +87,7 @@ export class SendComponent implements OnInit, OnDestroy {
     this.sendToSidechainForm = this.fb.group({
       "federationAddress": ["", Validators.compose([Validators.required, Validators.minLength(26)])],
       "destinationAddress": ["", Validators.compose([Validators.required, Validators.minLength(26)])],
-      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00001), (control: AbstractControl) => Validators.max((this.totalBalance - this.estimatedFee)/100000000)(control)])],
+      "amount": ["", Validators.compose([Validators.required, Validators.pattern(/^([0-9]+)?(\.[0-9]{0,8})?$/), Validators.min(0.00001), (control: AbstractControl) => Validators.max((this.spendableBalance - this.estimatedFee) / 100000000)(control)])],
       "fee": ["medium", Validators.required],
       "password": ["", Validators.required]
     });
@@ -111,7 +112,7 @@ export class SendComponent implements OnInit, OnDestroy {
 
     this.apiError = "";
 
-    if(this.sendForm.get("address").valid && this.sendForm.get("amount").valid) {
+    if (this.sendForm.get("address").valid && this.sendForm.get("amount").valid) {
       this.estimateFee();
     }
   }
@@ -132,7 +133,7 @@ export class SendComponent implements OnInit, OnDestroy {
 
     this.apiError = "";
 
-    if(this.sendToSidechainForm.get("destinationAddress").valid && this.sendToSidechainForm.get("federationAddress").valid && this.sendToSidechainForm.get("amount").valid) {
+    if (this.sendToSidechainForm.get("destinationAddress").valid && this.sendToSidechainForm.get("federationAddress").valid && this.sendToSidechainForm.get("amount").valid) {
       this.estimateSidechainFee();
     }
   }
@@ -152,8 +153,8 @@ export class SendComponent implements OnInit, OnDestroy {
     'amount': {
       'required': 'An amount is required.',
       'pattern': 'Enter a valid transaction amount. Only positive numbers and no more than 8 decimals are allowed.',
-      'min': "The amount has to be more or equal to 0.00001 x42.",
-      'max': 'The total transaction amount exceeds your available balance.'
+      'min': "The amount has to be more or equal to 0.00001 Stratis.",
+      'max': 'The total transaction amount exceeds your spendable balance.'
     },
     'fee': {
       'required': 'A fee is required.'
@@ -183,8 +184,8 @@ export class SendComponent implements OnInit, OnDestroy {
     'amount': {
       'required': 'An amount is required.',
       'pattern': 'Enter a valid transaction amount. Only positive numbers and no more than 8 decimals are allowed.',
-      'min': "The amount has to be more or equal to 0.00001 x42.",
-      'max': 'The total transaction amount exceeds your available balance.'
+      'min': "The amount has to be more or equal to 0.00001 Stratis.",
+      'max': 'The total transaction amount exceeds your spendable balance.'
     },
     'fee': {
       'required': 'A fee is required.'
@@ -205,13 +206,13 @@ export class SendComponent implements OnInit, OnDestroy {
     this.apiService.getMaximumBalance(data)
       .subscribe(
         response => {
-            balanceResponse = response;
+          balanceResponse = response;
         },
         error => {
           this.apiError = error.error.errors[0].message;
         },
         () => {
-          this.sendForm.patchValue({amount: +new CoinNotationPipe().transform(balanceResponse.maxSpendableAmount)});
+          this.sendForm.patchValue({ amount: +new CoinNotationPipe().transform(balanceResponse.maxSpendableAmount) });
           this.estimatedFee = balanceResponse.fee;
         }
       )
@@ -356,10 +357,11 @@ export class SendComponent implements OnInit, OnDestroy {
     let walletInfo = new WalletInfo(this.globalService.getWalletName());
     this.walletBalanceSubscription = this.apiService.getWalletBalance(walletInfo)
       .subscribe(
-        response =>  {
-            let balanceResponse = response;
-            //TO DO - add account feature instead of using first entry in array
-            this.totalBalance = balanceResponse.balances[0].amountConfirmed + balanceResponse.balances[0].amountUnconfirmed;
+        response => {
+          let balanceResponse = response;
+          //TO DO - add account feature instead of using first entry in array
+          this.totalBalance = balanceResponse.balances[0].amountConfirmed + balanceResponse.balances[0].amountUnconfirmed;
+          this.spendableBalance = balanceResponse.balances[0].spendableAmount;
         },
         error => {
           if (error.status === 0) {

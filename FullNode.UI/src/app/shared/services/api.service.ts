@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, interval, throwError } from 'rxjs';
-import { catchError, switchMap, startWith} from 'rxjs/operators';
+import { catchError, switchMap, startWith } from 'rxjs/operators';
 
 import { GlobalService } from './global.service';
 import { ModalService } from './modal.service';
@@ -17,6 +17,7 @@ import { FeeEstimation } from '../models/fee-estimation';
 import { TransactionBuilding } from '../models/transaction-building';
 import { TransactionSending } from '../models/transaction-sending';
 import { NodeStatus } from '../models/node-status';
+import { WalletRescan } from '../models/wallet-rescan';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ApiService {
     this.setApiUrl();
   };
 
-  private pollingInterval = interval(3000);
+  private pollingInterval = interval(5000);
   private apiPort;
   private stratisApiUrl;
 
@@ -70,6 +71,18 @@ export class ApiService {
     );
   }
 
+  /** Rescan wallet from a certain date using remove-transactions */
+  rescanWallet(data: WalletRescan): Observable<any> {
+    console.log(data.fromDate.toDateString());
+    let params = new HttpParams()
+      .set('walletName', data.name)
+      .set('fromDate', data.fromDate.toDateString())
+      .set('reSync', 'true');
+    return this.http.delete(this.stratisApiUrl + '/wallet/remove-transactions/', { params }).pipe(
+      catchError(err => this.handleHttpError(err))
+    );
+  }
+
   /**
    * Gets available wallets at the default path
    */
@@ -90,9 +103,9 @@ export class ApiService {
     );
   }
 
-    /**
-    * Get a new mnemonic
-    */
+  /**
+  * Get a new mnemonic
+  */
   getNewMnemonic(): Observable<any> {
     let params = new HttpParams()
       .set('language', 'English')
@@ -425,7 +438,7 @@ export class ApiService {
   private handleHttpError(error: HttpErrorResponse, silent?: boolean) {
     console.log(error);
     if (error.status === 0) {
-      if(!silent) {
+      if (!silent) {
         this.modalService.openModal(null, null);
         this.router.navigate(['app']);
       }
