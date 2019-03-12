@@ -105,7 +105,7 @@ app.on('ready', () => {
   }
   createTray();
   createWindow();
-  if (os.platform() === 'darwin'){
+  if (os.platform() === 'darwin') {
     createMenu();
   }
 });
@@ -153,7 +153,7 @@ function shutdownDaemon(portNumber) {
       "Content-Length": Buffer.byteLength(body)
     }
   })
-  
+
   request.write('true');
   request.on('error', function (e) { });
   request.on('timeout', function (e) { request.abort(); });
@@ -169,10 +169,10 @@ function startDaemon(daemonName) {
   var daemonPath;
   if (os.platform() === 'win32') {
     daemonPath = path.resolve(__dirname, '..\\..\\resources\\daemon\\' + daemonName + '.exe');
-  } else if(os.platform() === 'linux') {
-	  daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
+  } else if (os.platform() === 'linux') {
+    daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
   } else {
-	  daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
+    daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
   }
 
   if (!testnet) {
@@ -203,20 +203,20 @@ function createTray() {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Hide/Show',
-      click: function() {
+      click: function () {
         mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
       }
     },
     {
       label: 'Exit',
-      click: function() {
+      click: function () {
         app.quit();
       }
     }
   ]);
   systemTray.setToolTip('x42 Core');
   systemTray.setContextMenu(contextMenu);
-  systemTray.on('click', function() {
+  systemTray.on('click', function () {
     if (!mainWindow.isVisible()) {
       mainWindow.show();
     }
@@ -240,8 +240,9 @@ function createMenu() {
     label: app.getName(),
     submenu: [
       { label: "About " + app.getName(), selector: "orderFrontStandardAboutPanel:" },
-      { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
-    ]}, {
+      { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } }
+    ]
+  }, {
     label: "Edit",
     submenu: [
       { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
@@ -250,7 +251,8 @@ function createMenu() {
       { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
       { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
       { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-    ]}
+    ]
+  }
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
