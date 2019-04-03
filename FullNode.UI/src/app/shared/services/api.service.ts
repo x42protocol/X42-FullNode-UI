@@ -438,10 +438,7 @@ export class ApiService {
   private handleHttpError(error: HttpErrorResponse, silent?: boolean) {
     console.log(error);
     if (error.status === 0) {
-      if (!silent) {
-        this.modalService.openModal(null, null);
-        this.router.navigate(['app']);
-      }
+      // Do Nothing...
     } else if (error.status >= 400) {
       if (!error.error.errors[0].message) {
         console.log(error);
