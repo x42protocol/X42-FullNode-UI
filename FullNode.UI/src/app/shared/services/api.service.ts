@@ -446,7 +446,7 @@ export class ApiService {
       else {
         this.modalService.openModal(null, error.error.errors[0].message);
       }
+      return throwError(error);
     }
-    return throwError(error);
   }
 }
