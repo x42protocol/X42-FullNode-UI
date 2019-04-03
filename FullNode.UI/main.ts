@@ -126,6 +126,7 @@ app.on('quit', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+  shutdownDaemon(apiPort);
   app.quit();
 });
 
@@ -225,6 +226,7 @@ function createTray() {
   });
 
   app.on('window-all-closed', function () {
+    shutdownDaemon(apiPort);
     if (systemTray) systemTray.destroy();
   });
 };
