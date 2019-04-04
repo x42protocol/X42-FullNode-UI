@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, interval, throwError } from 'rxjs';
-import { catchError, switchMap, startWith } from 'rxjs/operators';
+import { catchError, switchMap, startWith, timeout } from 'rxjs/operators';
 
 import { GlobalService } from './global.service';
 import { ModalService } from './modal.service';
@@ -38,12 +38,14 @@ export class ApiService {
 
   getNodeStatus(silent?: boolean): Observable<NodeStatus> {
     return this.http.get<NodeStatus>(this.stratisApiUrl + '/node/status').pipe(
+      timeout(10000),
       catchError(err => this.handleHttpError(err, silent))
     );
   }
 
   getNodeStatusInterval(): Observable<NodeStatus> {
     return this.pollingInterval.pipe(
+      timeout(5000),
       startWith(0),
       switchMap(() => this.http.get<NodeStatus>(this.stratisApiUrl + '/node/status')),
       catchError(err => this.handleHttpError(err))
@@ -148,6 +150,7 @@ export class ApiService {
    */
   getWalletStatus(): Observable<any> {
     return this.http.get(this.stratisApiUrl + '/wallet/status').pipe(
+      timeout(10000),
       catchError(err => this.handleHttpError(err))
     );
   }
@@ -158,6 +161,7 @@ export class ApiService {
   getGeneralInfoOnce(data: WalletInfo): Observable<any> {
     let params = new HttpParams().set('Name', data.walletName);
     return this.http.get(this.stratisApiUrl + '/wallet/general-info', { params }).pipe(
+      timeout(10000),
       catchError(err => this.handleHttpError(err))
     );
   }
@@ -168,6 +172,7 @@ export class ApiService {
   getGeneralInfo(data: WalletInfo): Observable<any> {
     let params = new HttpParams().set('Name', data.walletName);
     return this.pollingInterval.pipe(
+      timeout(10000),
       startWith(0),
       switchMap(() => this.http.get(this.stratisApiUrl + '/wallet/general-info', { params })),
       catchError(err => this.handleHttpError(err))
@@ -182,6 +187,7 @@ export class ApiService {
       .set('walletName', data.walletName)
       .set('accountName', "account 0");
     return this.pollingInterval.pipe(
+      timeout(10000),
       startWith(0),
       switchMap(() => this.http.get(this.stratisApiUrl + '/wallet/balance', { params })),
       catchError(err => this.handleHttpError(err))
@@ -210,6 +216,7 @@ export class ApiService {
       .set('walletName', data.walletName)
       .set('accountName', "account 0");
     return this.pollingInterval.pipe(
+      timeout(10000),
       startWith(0),
       switchMap(() => this.http.get(this.stratisApiUrl + '/wallet/history', { params: params })),
       catchError(err => this.handleHttpError(err))
@@ -330,6 +337,7 @@ export class ApiService {
    */
   getStakingInfo(): Observable<any> {
     return this.pollingInterval.pipe(
+      timeout(10000),
       startWith(0),
       switchMap(() => this.http.get(this.stratisApiUrl + '/staking/getstakinginfo')),
       catchError(err => this.handleHttpError(err))
@@ -377,6 +385,7 @@ export class ApiService {
   getAccountBalance(walletName: string): Observable<any> {
     let params = new HttpParams().set('walletName', walletName);
     return this.http.get(this.stratisApiUrl + '/smartcontractwallet/account-balance', { params }).pipe(
+      timeout(10000),
       catchError(err => this.handleHttpError(err))
     );
   }
@@ -437,18 +446,15 @@ export class ApiService {
 
   private handleHttpError(error: HttpErrorResponse, silent?: boolean) {
     console.log(error);
-    if (error.status === 0) {
-      if (!silent) {
-        this.modalService.openModal(null, null);
-        this.router.navigate(['app']);
-      }
-    } else if (error.status >= 400) {
+    if (error.status >= 400) {
       if (!error.error.errors[0].message) {
         console.log(error);
       }
       else {
         this.modalService.openModal(null, error.error.errors[0].message);
       }
+    } else {
+      console.log(error);
     }
     return throwError(error);
   }

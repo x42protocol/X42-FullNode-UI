@@ -126,6 +126,7 @@ app.on('quit', () => {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+  shutdownDaemon(apiPort);
   app.quit();
 });
 
@@ -173,15 +174,9 @@ function startDaemon(daemonName) {
     daemonPath = path.resolve(__dirname, '..//..//resources//daemon//' + daemonName);
   }
 
-  if (!testnet) {
-    daemonProcess = spawnDaemon(daemonPath, {
-      detached: true
-    });
-  } else if (testnet) {
-    daemonProcess = spawnDaemon(daemonPath, ['-testnet'], {
-      detached: true
-    });
-  }
+  daemonProcess = spawnDaemon(daemonPath, [args.join(' ').replace('--', '-')], {
+    detached: true
+  });
 
   daemonProcess.stdout.on('data', (data) => {
     writeLog(`x42: ${data}`);
@@ -225,6 +220,7 @@ function createTray() {
   });
 
   app.on('window-all-closed', function () {
+    shutdownDaemon(apiPort);
     if (systemTray) systemTray.destroy();
   });
 };
