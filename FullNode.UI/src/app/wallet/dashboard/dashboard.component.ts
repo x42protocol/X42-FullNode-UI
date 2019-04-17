@@ -97,10 +97,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
           } else {
             this.hasBalance = false;
           }
-          console.log("Balcheck 1:" + this.sidechainEnabled);
         },
         error => {
-          console.log("Balcheck 2:" + this.hasBalance);
           this.cancelSubscriptions();
           this.startSubscriptions();
         }
