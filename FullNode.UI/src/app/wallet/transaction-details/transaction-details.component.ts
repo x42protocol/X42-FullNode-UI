@@ -48,15 +48,8 @@ export class TransactionDetailsComponent implements OnInit, OnDestroy {
           this.getConfirmations(this.transaction);
         },
         error => {
-          if (error.status === 0) {
-            this.cancelSubscriptions();
-            this.startSubscriptions();
-          } else if (error.status >= 400) {
-            if (!error.error.errors[0].message) {
-              this.cancelSubscriptions();
-              this.startSubscriptions();
-            }
-          }
+          this.cancelSubscriptions();
+          this.startSubscriptions();
         }
       );
   };

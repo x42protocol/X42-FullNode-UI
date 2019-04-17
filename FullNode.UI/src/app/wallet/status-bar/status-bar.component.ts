@@ -76,15 +76,8 @@ export class StatusBarComponent implements OnInit, OnDestroy {
           }
         },
         error => {
-          if (error.status === 0) {
-            this.cancelSubscriptions();
-            this.startSubscriptions();
-          } else if (error.status >= 400) {
-            if (!error.error.errors[0].message) {
-              this.cancelSubscriptions();
-              this.startSubscriptions();
-            }
-          }
+          this.cancelSubscriptions();
+          this.startSubscriptions();
         }
       )
     ;
@@ -97,15 +90,8 @@ export class StatusBarComponent implements OnInit, OnDestroy {
           let stakingResponse = response
           this.stakingEnabled = stakingResponse.enabled;
         }, error => {
-          if (error.status === 0) {
-            this.cancelSubscriptions();
-            this.startSubscriptions();
-          } else if (error.status >= 400) {
-            if (!error.error.errors[0].message) {
-              this.cancelSubscriptions();
-              this.startSubscriptions();
-            }
-          }
+          this.cancelSubscriptions();
+          this.startSubscriptions();
         }
       )
     ;
