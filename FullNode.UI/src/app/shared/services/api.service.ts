@@ -215,7 +215,19 @@ export class ApiService {
       catchError(err => this.handleHttpError(err))
     )
   }
-
+ /**
+   * Get a wallets full transaction history info from the API.
+   */
+  getFullWalletHistory(data: WalletInfo): Observable<any> {
+    let params = new HttpParams()
+      .set('walletName', data.walletName)
+      .set('accountName', "account 0")
+    return this.pollingInterval.pipe(
+      startWith(0),
+      switchMap(() => this.http.get(this.stratisApiUrl + '/wallet/fullhistory', { params: params })),
+      catchError(err => this.handleHttpError(err))
+    )
+  }
   /**
    * Get an unused receive address for a certain wallet from the API.
    */
