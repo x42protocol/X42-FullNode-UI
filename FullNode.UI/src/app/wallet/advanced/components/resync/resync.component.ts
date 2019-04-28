@@ -114,6 +114,7 @@ export class ResyncComponent implements OnInit, OnDestroy {
         },
         error => {
           this.cancelSubscriptions();
+          this.startSubscriptions();
         }
       )
       ;

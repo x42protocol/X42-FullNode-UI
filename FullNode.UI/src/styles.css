@@ -9886,6 +9886,32 @@ img {
     color: #fff !important;
   }
 
+.LoadingDash {
+  padding: 60px;
+  text-align: center;
+  position: relative;
+}
+
+  .LoadingDash.LoadingDashAnim {
+    padding: 0 !important;
+  }
+
+  .LoadingDash:before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #4b79ae;
+    opacity: .75;
+    border-radius: 100%;
+    -webkit-animation: scaleout 1.5s infinite ease-in-out;
+    animation: scaleout 1.5s infinite ease-in-out;
+  }
+
+  .LoadingDash.unset-left:before {
+    left: unset;
+  }
+
 .Loading {
   padding: 30px;
   text-align: center;

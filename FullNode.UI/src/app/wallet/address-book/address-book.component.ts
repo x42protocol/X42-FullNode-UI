@@ -53,14 +53,8 @@ export class AddressBookComponent implements OnInit, OnDestroy {
             }
           },
           error => {
-            if (error.status === 0) {
-              this.cancelSubscriptions();
-            } else if (error.status >= 400) {
-              if (!error.error.errors[0].message) {
-                this.cancelSubscriptions();
-                this.startSubscriptions();
-              }
-            }
+            this.cancelSubscriptions();
+            this.startSubscriptions();
           }
         )
       ;
