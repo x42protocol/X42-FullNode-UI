@@ -50,7 +50,7 @@ export class HistoryComponent {
   private getHistory() {
     let walletInfo = new WalletInfo(this.globalService.getWalletName())
     let historyResponse;
-    this.walletHistorySubscription = this.apiService.getWalletHistory(walletInfo)
+    this.walletHistorySubscription = this.apiService.getWalletHistory(walletInfo,1)
       .subscribe(
         response => {
           //TO DO - add account feature instead of using first entry in array
