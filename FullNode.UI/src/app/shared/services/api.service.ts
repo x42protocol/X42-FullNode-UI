@@ -436,22 +436,6 @@ export class ApiService {
     );
   }
 
-  getCurrentStexPriceUSD():Observable<any> {
-   
-    return this.pollingInterval.pipe(
-      startWith(0),
-      switchMap(() => this.http.get('https://api.coingecko.com/api/v3/simple/price?ids=x42-protocol&vs_currencies=usd')),
-      catchError(err => this.handleHttpError(err))
-    )
-  }
-  getCurrentStexPriceBTC():Observable<any> {
-    return this.pollingInterval.pipe(
-      startWith(0),
-      switchMap(() => this.http.get('https://api.coingecko.com/api/v3/simple/price?ids=x42-protocol&vs_currencies=btc')),
-      catchError(err => this.handleHttpError(err))
-    )
-  }
-
   private handleHttpError(error: HttpErrorResponse, silent?: boolean) {
     console.log(error);
     if (error.status >= 400) {
