@@ -7,7 +7,7 @@
 
 #### Step 1. 
 
-Using your browser, Download the x42.Core-v0.1.8-linux-armv7l.deb file from [here](https://github.com/x42protocol/X42-FullNode-UI/releases)
+Using your browser, Download the x42.Core-v0.1.19-linux-armv7l.deb file from [here](https://github.com/x42protocol/X42-FullNode-UI/releases)
 
 *NOTE: wget and curl have been seen to cause issues with the file download*
 
@@ -21,6 +21,6 @@ to make sure that the package manager can unpack the armv7l architecture.
 #### Step 3.
 
 In a terminal run     
-```sudo dpkg -i x42.Core-v0.1.8-linux-armv7l.deb```
+```sudo dpkg -i x42.Core-v0.1.19-linux-armv7l.deb```
         
 Enjoy.
